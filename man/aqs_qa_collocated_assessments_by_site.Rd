@@ -75,24 +75,24 @@ matching input parameter, stateFIPS, county_code, and
 sitenum provided for bdate - edate time frame.
 }
 \note{
-The AQS API only allows for a single year of collocated assessments to
-be retrieved at a time. This function conveniently extracts date
-information from the bdate and edate parameters then makes repeated
-calls to the AQSAPI retrieving a maximum of one calendar year of data
-at a time. Each calendar year of data requires a separate API call so
-multiple years of data will require multiple API calls. As the number
-of years of data being requested increases so does the length of time
-that it will take to retrieve results. There is also a 5 second wait
-time inserted between successive API calls to prevent overloading the
-API server. This operation has a linear run time of
-/(Big O notation: O/(n + 5 seconds/)/).
+The AQS API only allows for a single year of collocated assessments
+data to be retrieved at a time. This function conveniently extracts
+date information from the bdate and edate parameters then makes
+repeated calls to the AQSAPI retrieving a maximum of one calendar
+year of data at a time. Each calendar year of data requires a
+separate API call so multiple years of data will require multiple API
+calls. As the number of years of data being requested increases so
+does the length of time that it will take to retrieve results. There
+is also a 5 second wait time inserted between successive API calls to
+prevent overloading the API server. This operation has a linear run
+time of /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
 #returns a tibble of collocated assessment data
           #  for FRM PM2.5 at the Huntsville Old Airport site (\#0014)
-          #  in Madison County, AL for January 2013:
+          #  in Madison County, AL for January 2015:
  \dontrun{aqs_qa_collocated_assessments_by_site(parameter = "88101",
-                                                bdate = as.Date("20130101",
+                                                bdate = as.Date("20150101",
                                                             format = "\%Y\%m\%d"
                                                                ),
                                                 edate = as.Date("20150131",
@@ -109,7 +109,7 @@ Other Aggregate _by_site functions:
 \code{\link{aqs_annualsummary_by_site}()},
 \code{\link{aqs_dailysummary_by_site}()},
 \code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
+\code{\link{aqs_qa_annualperformanceeval_by_site}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_county}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
 \code{\link{aqs_qa_blanks_by_site}()},

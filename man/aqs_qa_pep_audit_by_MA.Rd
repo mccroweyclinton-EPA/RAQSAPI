@@ -52,8 +52,8 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object containing quality
 assurance PEP audit data for a monitoring agency. A
 AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-first item (\$Header) is a tibble of header information from the
-AQS API and the second item (\$Data) is a tibble of the data
+first item ($Header) is a tibble of header information from the
+AQS API and the second item ($Data) is a tibble of the data
 returned.
 }
 \description{
@@ -76,7 +76,7 @@ API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
-# returns a tibble of PEP audit data for
+# Returns a tibble of PEP audit data for
           #  June 2017 where the Monitoring Agency is the Alabama Department
           #  of Environmental Management (agency 0013)
           \dontrun{aqs_qa_pep_audit_by_MA(parameter = "88101",
@@ -90,7 +90,7 @@ API server. This operation has a linear run time of
 }
 \seealso{
 Other Aggregate _by_MA functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_MA}()},
+\code{\link{aqs_qa_annualperformanceeval_by_MA}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_MA}()},
 \code{\link{aqs_qa_blanks_by_MA}()},
 \code{\link{aqs_qa_collocated_assessments_by_MA}()},

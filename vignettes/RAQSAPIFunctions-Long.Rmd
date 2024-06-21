@@ -56,16 +56,16 @@ RAQSAPI_functions <- c(
 "aqs_monitors_by_state",  
 "aqs_parameters_by_class",  
 "aqs_pqaos",
-"aqs_qa_annualPeferomanceeval_by_county",
-"aqs_qa_annualPeferomanceeval_by_MA",
-"aqs_qa_annualPeferomanceeval_by_pqao",
-"aqs_qa_annualPeferomanceeval_by_site",
-"aqs_qa_annualPeferomanceeval_by_state",
-"aqs_qa_annualPeferomanceevaltransaction_by_county",
-"aqs_qa_annualPeferomanceevaltransaction_by_MA",
-"aqs_qa_annualPeferomanceevaltransaction_by_pqao",
-"aqs_qa_annualPeferomanceevaltransaction_by_site",
-"aqs_qa_annualPeferomanceevaltransaction_by_state",
+"aqs_qa_annualperformanceeeval_by_county",
+"aqs_qa_annualperformanceeval_by_MA",
+"aqs_qa_annualperformanceeval_by_pqao",
+"aqs_qa_annualperformanceeval_by_site",
+"aqs_qa_annualperformanceeval_by_state",
+"aqs_qa_annualperformanceevaltransaction_by_county",
+"aqs_qa_annualperformanceevaltransaction_by_MA",
+"aqs_qa_annualperformanceevaltransaction_by_pqao",
+"aqs_qa_annualperformanceevaltransaction_by_site",
+"aqs_qa_annualperformanceevaltransaction_by_state",
 "aqs_qa_blanks_by_county",  
 "aqs_qa_blanks_by_MA",  
 "aqs_qa_blanks_by_pqao",  
@@ -257,18 +257,19 @@ The RAQSAPI::aqs_credentials function takes two parameters:
 ## Data Mart API metadata functions
 ```{r METADATAFUNCTIONS, echo = FALSE, comment = NA}
 metadatafunctions <- paste(".available",
-                           ".field_by_service",
+                           ".fields_by_service",
                            ".knownissues", sep = '|')
 
 str_subset(string = RAQSAPI_functions, pattern = metadatafunctions) %>%
   cat(sep = "  \n")
 ```
-These functions return Data Mart meta data
+These functions return the status of Data Mart API or metadata associated with
+    it.
 
 The RAQSAPI::aqs_isavailable function takes no parameters and returns a
     table which details the status of the AQS API.
 
-The RAQSAPI::aqs_field_by_Service function takes one parameter, service,
+The RAQSAPI::aqs_fields_by_service function takes one parameter, service,
     which is a R character object which represents the services provided by
     the AQS API. For a list of available services see
     [Air Quality System (AQS) API - Services Overview](
@@ -300,10 +301,10 @@ listfunctions <- paste(".states",
 str_subset(string = RAQSAPI_functions, pattern = listfunctions) %>%
   cat(sep = "  \n")
 ```
-List functions return options or groupings that can be used in conjunction with
-    other API calls. By default each function in this category returns results
-    as a tibble. If return_header parameter is set to TRUE a AQSAPI_v2 object is
-    returned instead.
+List functions return the API options or groupings that can be used in
+    conjunction with other API calls. By default each function in this category
+    returns results as a tibble. If return_header parameter is set to TRUE a
+    AQSAPI_v2 object is returned instead.
 
 RAQSAPI::aqs_cbsas returns a table of all available Core Based Statistical
     Areas (cbsas) and their respective cbsa codes.
@@ -398,7 +399,7 @@ These functions retrieve aggregated data from the Data Mart API and are
                             summaries are calculated on midnight to midnight
                             basis in local time. Variables returned include
                             date, mean value, maximum value, etc. Functions
-                            using this service contain *\*dailydata_by_*\* in
+                            using this service contain *\*dailysummary_by_*\* in
                             the function name. All Daily Summary Data functions
                             accept two additional parameters; cbdate and cedate:
       + cbdate: a R date object which represents a "beginning date of last
@@ -504,7 +505,7 @@ These functions retrieve aggregated data from the Data Mart API and are
                      known and measured concentrations  at several levels are
                      used to assess the quality of the monitoring data.
                      Functions using this service contain
-                     *\*aqs_qa_annualpeferomanceeval_by_*\* in the function
+                     *\*aqs_qa_annualperformanceeval_by_*\* in the function
                      name. Annual performance in transaction format are
                     only available aggregated by site, county, state,
                     monitoring agency, and primary quality assurance
@@ -542,11 +543,11 @@ functions in this family of functions aggregate data at the site level. All
 * countycode:
 * sitenum:
 * cbdate (optional): (This parameter is only used in conjunction with 
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* functions and
                         *\*quarterlysummary_by_*\* functions).
 * cedate (optional): (This parameter is only used in conjunction with
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* functions and
                         *\*quarterlysummary_by_*\* functions).
 * return_header (optional): set to FALSE by default.
@@ -569,19 +570,18 @@ functions in this family of functions aggregate data at the county level.
 * stateFIPS: 
 * countycode:
 * cbdate (optional): (This parameter is only used in conjunction with 
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* and
                         *\*quarterlysummary_by_*\* functions).
 * cedate (optional): (This parameter is only used in conjunction with
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* and
                         *\*quarterlysummary_by_*\* functions).
 * return_header (optional): set to FALSE by default.
 * duration (optional): (This parameter is only used in conjunction with
                                  *\*sampledata_by_*\* functions).
 
-### Data Mart aggregate functions by Monitoring agency (MA)
-
+### Data Mart aggregate functions _by_state
 ```{r _by_STATEfunctions, echo = FALSE, comment = NA}
 by_STATEfunctions <- paste("._by_state", sep = '|')
 
@@ -596,17 +596,18 @@ functions in this family of functions aggregate data at the state level.
 * edate:
 * stateFIPS:
 * cbdate (optional): (This parameter is only used in conjunction with 
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* functions and
                         *\*quarterlysummary_by_*\* functions).
 * cedate (optional): (This parameter is only used in conjunction with
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* and
                         *\*quarterlysummary_by_*\* functions).
 * return_header (optional): set to FALSE by default.
 * duration (optional): (This parameter is only used in conjunction with
                                  *\*sampledata_by_*\* functions).
 
+### Data Mart aggregate functions by Monitoring agency (MA)
 ```{r _by_MAfunctions, echo = FALSE, comment = NA}
 by_MAfunctions <- paste("._by_MA", sep = '|')
 
@@ -621,11 +622,11 @@ functions in this family of functions aggregate data at the Monitoring Agency
 * edate:
 * MA_code:
 * cbdate (optional): (This parameter is only used in conjunction with 
-                        *\*sampledataby*\*, *\*dailydataby*\*,
+                        *\*sampledataby*\*, *\*dailysummaryby*\*,
                         *\*annualdataby*\* and
                         *\*quarterlysummary_by_*\* functions).
 * cedate (optional): (This parameter is only used in conjunction with
-                        *\*sampledataby*\*, *\*dailydataby*\*,
+                        *\*sampledataby*\*, *\*dailysummaryby*\*,
                         *\*annualdataby*\* and
                         *\*quarterlysummary_by_*\* functions).
 * return_header (optional): set to FALSE by default.
@@ -648,11 +649,11 @@ functions in this family of functions aggregate data at the Core Based
 * edate:
 * cbsa_code:
 * cbdate (optional): (This parameter is only used in conjunction with 
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* and
                         *\*quarterlysummary_by_*\* functions).
 * cedate (optional): (This parameter is only used in conjunction with
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* and
                         *\*quarterlysummary_by_*\* functions).
 * return_header (optional): set to FALSE by default.
@@ -696,18 +697,16 @@ Functions in this family of functions aggregate data by a
 * maxlon:
 * maxlat:
 * cbdate (optional): (This parameter is only used in conjunction with 
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* and
                         *\*quarterlysummary_by_*\* functions).
 * cedate (optional): (This parameter is only used in conjunction with
-                        *\*sampledata_by_*\*, *\*dailydata_by_*\*,
+                        *\*sampledata_by_*\*, *\*dailysummary_by_*\*,
                         *\*annualdata_by_*\* and
                         *\*quarterlysummary_by_*\* functions).
 * return_header (optional): set to FALSE by default.
 * duration (optional): (This parameter is only used in conjunction with
                                  *\*sampledata_by_*\* functions).
-
-### Data Mart aggregate functions _by_state
 
 ### RAQSAPI Miscellaneous functions
 ```{r misc, echo = FALSE, comment = NA}

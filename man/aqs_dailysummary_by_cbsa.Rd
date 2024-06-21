@@ -52,8 +52,8 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object that contains daily
 summary statistics for the given parameter for a single cbsa_code.
 An AQS_Data Mart_APIv2 is a 2 item named list in which the first
-item (\$Header) is a tibble of header information from the AQS API
-and the second item (\$Data) is a tibble of the data returned.
+item ($Header) is a tibble of header information from the AQS API
+and the second item ($Data) is a tibble of the data returned.
 }
 \description{
 \lifecycle{stable}
@@ -75,8 +75,8 @@ API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
-# returns a tibble of daily summary NO2
-          #  data the for Charlotte-Concord-Gastonia, NC cbsa for
+# Returns a tibble of $NO_{2}$ daily summary
+          #  data the for Charlotte-Concord-Gastonia, NC cbsa on
           #  Janurary 01, 2017
           \dontrun{aqs_dailysummary_by_cbsa(parameter = "42602",
                                                bdate = as.Date("20170101",

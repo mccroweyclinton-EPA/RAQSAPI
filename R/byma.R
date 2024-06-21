@@ -33,7 +33,7 @@
 #'           list in which the first item ($Header) is a tibble of header
 #'           information from the AQS API and the second item ($Data) is a
 #'           tibble of the data returned.
-#' @examples # returns a tibble containing PM2.5 blank data for
+#' @examples # Returns a tibble containing PM2.5 blank data in
 #'           #  January 2018 where the Monitoring Agency is the Alabama
 #'           #  Department of Environmental Management (agency 0013)
 #'           \dontrun{aqs_qa_blanks_by_MA(parameter = "88101",
@@ -73,17 +73,17 @@ aqs_qa_blanks_by_MA <- function(parameter, bdate, edate, MA_code,
 #'                Returns a table of collocated assessment data aggregated by
 #'                 matching input parameter, and monitoring agency (MA) code
 #'                 provided for bdate - edate time frame.
-#' @note The AQS API only allows for a single year of collocated assessments to
-#'         be retrieved at a time. This function conveniently extracts date
-#'         information from the bdate and edate parameters then makes repeated
-#'         calls to the AQSAPI retrieving a maximum of one calendar year of data
-#'         at a time. Each calendar year of data requires a separate API call so
-#'         multiple years of data will require multiple API calls. As the number
-#'         of years of data being requested increases so does the length of time
-#'         that it will take to retrieve results. There is also a 5 second wait
-#'         time inserted between successive API calls to prevent overloading the
-#'         API server. This operation has a linear run time of
-#'         /(Big O notation: O/(n + 5 seconds/)/).
+#' @note The AQS API only allows for a single year of collocated assessments
+#'         data to be retrieved at a time. This function conveniently extracts
+#'         date information from the bdate and edate parameters then makes
+#'         repeated calls to the AQSAPI retrieving a maximum of one calendar
+#'         year of data at a time. Each calendar year of data requires a
+#'         separate API call so multiple years of data will require multiple API
+#'         calls. As the number of years of data being requested increases so
+#'         does the length of time that it will take to retrieve results. There
+#'         is also a 5 second wait time inserted between successive API calls to
+#'         prevent overloading the API server. This operation has a linear run
+#'         time of /(Big O notation: O/(n + 5 seconds/)/).
 #' @family Aggregate _by_MA functions
 #' @inheritParams aqs_services_by_MA
 #' @importFrom magrittr `%<>%`
@@ -97,9 +97,10 @@ aqs_qa_blanks_by_MA <- function(parameter, bdate, edate, MA_code,
 #'           in which the first item ($Header) is a tibble of header information
 #'           from the AQS API and the second item ($Data) is a tibble of the
 #'           data returned.
-#' @examples # returns a tibble containing collocated assessment
+#' @examples # Returns a tibble containing collocated assessment
 #'           #   data for FRM PM2.5 January 2013 where the Monitoring Agency is
-#'           #   the Alabama Department of Environmental Management (agency 0013)
+#'           #   the Alabama Department of Environmental Management
+#'           # (agency 0013)
 #'           \dontrun{aqs_qa_collocated_assessments_by_MA(parameter="88101",
 #'                                                   bdate = as.Date("20130101",
 #'                                                           format = "%Y%m%d"),
@@ -165,7 +166,7 @@ aqs_qa_collocated_assessments_by_MA <- function(parameter, bdate,
 #'           from the AQS API and the second item ($Data) is a tibble of the
 #'           data returned.
 #' @examples
-#'   # returns a tibble containing collocated assessment
+#'   # Returns a tibble containing collocated assessment
 #'   #   data for FRM PM2.5 January 2013 where the Monitoring Agency is
 #'   #   the Alabama Department of Environmental Management (agency 0013)
 #'   \dontrun{aqs_qa_flowrateverification_by_MA(parameter = "88101",
@@ -228,8 +229,8 @@ aqs_qa_flowrateverification_by_MA <- function(parameter, bdate, edate,
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object containing flow rate
 #'           audit data for the requested MA_code. An
 #'           AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-#'           first item (\$Header) is a tibble of header information from the
-#'           AQS API and the second item (\$Data) is a tibble of the data
+#'           first item ($Header) is a tibble of header information from the
+#'           AQS API and the second item ($Data) is a tibble of the data
 #'           returned.
 #' @examples
 #'  # returns a tibble of flow rate audit data
@@ -292,11 +293,11 @@ aqs_qa_flowrateaudit_by_MA <- function(parameter, bdate, edate, MA_code,
 #'   purposes in addition to the data requested.
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object containing one point
 #'            qc data for a single monitoring agency. A AQS_Data_Mart_APIv2
-#'            object is a 2 item named list in which the first item (\$Header)
+#'            object is a 2 item named list in which the first item ($Header)
 #'            is a tibble of header information from the AQS API and the second
-#'            item (\$Data) is a tibble of the data returned.
+#'            item ($Data) is a tibble of the data returned.
 #' @examples # returns a tibble of ozone One Point QC data
-#'           #  for January 2018 where the Monitoring Agency is the
+#'           #  in January 2018 where the Monitoring Agency is the
 #'           #  Massachusetts Department of Environmental Protection
 #'           #  (agency 0660)
 #'           \dontrun{aqs_qa_one_point_qc_by_MA(parameter = "44201",
@@ -357,10 +358,10 @@ aqs_qa_one_point_qc_by_MA <- function(parameter, bdate, edate, MA_code,
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object containing quality
 #'           assurance PEP audit data for a monitoring agency. A
 #'           AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-#'           first item (\$Header) is a tibble of header information from the
-#'           AQS API and the second item (\$Data) is a tibble of the data
+#'           first item ($Header) is a tibble of header information from the
+#'           AQS API and the second item ($Data) is a tibble of the data
 #'           returned.
-#' @examples # returns a tibble of PEP audit data for
+#' @examples # Returns a tibble of PEP audit data for
 #'           #  June 2017 where the Monitoring Agency is the Alabama Department
 #'           #  of Environmental Management (agency 0013)
 #'           \dontrun{aqs_qa_pep_audit_by_MA(parameter = "88101",
@@ -421,18 +422,16 @@ aqs_qa_pep_audit_by_MA <- function(parameter, bdate, edate, MA_code,
 #'                        from the API server mostly used for debugging
 #'                        purposes in addition to the data requested.
 #' @importFrom magrittr `%<>%`
-#' @examples #Returns a AQS_Data Mart_APIv2 S3 object of
-#'          \dontrun{ #   all ozone transaction sample data for all monitors
-#'                    #   operated by South Coast Air Quality Management
-#'                    #   District collected on May 15, 2015
-#'                    #   North Carolina on May 15, 1995
-#'                    aqs_transactionsample_by_MA(parameter = "44201",
-#'                                                  bdate = as.Date("20150515",
-#'                                                          format = "%Y%m%d"),
-#'                                                  edate = as.Date("20150515",
+#' @examples #Returns a tibble of ozone transaction sample data for all monitors
+#'           #operated by South Coast Air Quality Management District collected
+#'           #on May 15, 2015
+#'           \dontrun{aqs_transactionsample_by_MA(parameter = "44201",
+#'                                                bdate = as.Date("20150515",
 #'                                                           format = "%Y%m%d"),
-#'                                                  MA_code = "0972"
-#'                                                  )
+#'                                                edate = as.Date("20150515",
+#'                                                           format = "%Y%m%d"),
+#'                                                MA_code = "0972"
+#'                                                )
 #'                  }
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object of transaction sample
 #'           (raw) data in the AQS submission transaction format (RD)
@@ -459,16 +458,16 @@ aqs_transactionsample_by_MA <- function(parameter, bdate, edate, MA_code,
 }
 
 
-#' @title aqs_qa_annualpeferomanceeval_by_MA
+#' @title aqs_qa_annualperformanceeval_by_MA
 #' @description \lifecycle{stable}
 #'        Returns quality assurance performance evaluation data - aggregated by
 #'          by Monitoring agency (MA) for a parameter
 #'          code aggregated by matching input parameter and MA_code for the
 #'          time frame between bdate and edate.
 #' @note The AQS API only allows for a single year of quality assurance
-#'         Annual Performance Evaluation data to be retrieved at a
-#'         time. This function conveniently extracts date information from the
-#'         bdate and edate parameters then makes repeated calls to the AQSAPI
+#'         Annual Performance Evaluation data to be retrieved at a time. This
+#'         function conveniently extracts date information from the bdate
+#'         and edate parameters then makes repeated calls to the AQSAPI
 #'         retrieving a maximum of one calendar year of data at a time. Each
 #'         calendar year of data requires a separate API call so multiple years
 #'         of data will require multiple API calls. As the number of years of
@@ -486,17 +485,16 @@ aqs_transactionsample_by_MA <- function(parameter, bdate, edate, MA_code,
 #'                        purposes in addition to the data requested.
 #' @importFrom magrittr `%<>%`
 #' @examples
-#'           #Returns an AQS_Data Mart_APIv2 S3 object or a tibble
-#'           #  containing annual performance evaluation data for ozone where
-#'           #  the monitoring agency is the Alabama Department of
-#'           #  Environmental Management (MA_code 0013).
-#'           \dontrun{aqs_qa_annualpeferomanceeval_by_MA(parameter = "44201",
+#'           # Returns a tibble containing annual performance evaluation data
+#'           #  for ozone where the monitoring agency is the Alabama Department
+#'           #  of Environmental Management (MA_code 0013).
+#'           \dontrun{aqs_qa_annualperformanceeval_by_MA(parameter = "44201",
 #'                                                   bdate = as.Date("20170101",
 #'                                                           format = "%Y%m%d"),
 #'                                                   edate = as.Date("20171231",
 #'                                                           format = "%Y%m%d"),
 #'                                                           MA_code = "0013"
-#'                                                         )
+#'                                                      )
 #'                   }
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object of quality assurance
 #'           performance evaluation data. for all monitoring sites for with
@@ -505,7 +503,7 @@ aqs_transactionsample_by_MA <- function(parameter, bdate, edate, MA_code,
 #'           item ($Header) is a tibble of header information from the AQS API
 #'           and the second item ($Data) is a tibble of the data returned.
 #' @export
-aqs_qa_annualpeferomanceeval_by_MA <- function(parameter, bdate, edate,
+aqs_qa_annualperformanceeval_by_MA <- function(parameter, bdate, edate,
                                                MA_code,
                                                return_header = FALSE)
 {
@@ -524,17 +522,17 @@ aqs_qa_annualpeferomanceeval_by_MA <- function(parameter, bdate, edate,
 }
 
 
-#' @title aqs_qa_annualperformanceevaltransaction_by_site
+#' @title aqs_qa_annualperformanceevaltransaction_by_MA
 #' @description \lifecycle{stable}
 #'          Returns AQS submissions transaction format (RD) of the annual
 #'             performance evaluation data (raw). Includes data pairs for
 #'             QA - aggregated by Monitoring agency (MA)
 #'             for a parameter code aggregated by matching input parameter and
 #'             MA_code provided for bdate - edate time frame.
-#' @note The AQS API only allows for a single year of quality assurance Annual
-#'         Performance Evaluation transaction data to be retrieved at a time.
-#'         This function conveniently extracts date information from the bdate
-#'         and edate parameters then makes repeated calls to the AQSAPI
+#' @note The AQS API only allows for a single year of quality assurance
+#'         Annual Performance Evaluations transaction data to be retrieved at a
+#'         time. This function conveniently extracts date information from the
+#'         bdate and edate parameters then makes repeated calls to the AQSAPI
 #'         retrieving a maximum of one calendar year of data at a time. Each
 #'         calendar year of data requires a separate API call so multiple years
 #'         of data will require multiple API calls. As the number of years of
@@ -551,17 +549,16 @@ aqs_qa_annualpeferomanceeval_by_MA <- function(parameter, bdate, edate,
 #'                        from the API server mostly used for debugging
 #'                        purposes in addition to the data requested.
 #' @importFrom magrittr `%<>%`
-#' @examples #Returns an AQS_Data Mart_APIv2 S3 object or a tibble
-#'           #   containing annual performance evaluation data for ozone in
-#'           #   where the MA is the Alabama Department of Environmental
-#'           #   Management (MA_code 0013) for 2017 in RD format.
+#' @examples # Returns a tibble containing annual performance evaluation data
+#'           #  for ozone in where the MA is the Alabama Department of
+#'           #  Environmental Management (MA_code 0013) for 2017 in RD format.
 #'  \dontrun{aqs_qa_annualperformanceevaltransaction_by_MA(parameter = "44201",
-#'                                               bdate = as.Date("20170101",
+#'                                                   bdate = as.Date("20170101",
 #'                                                           format = "%Y%m%d"),
-#'                                               edate = as.Date("20171231",
+#'                                                   edate = as.Date("20171231",
 #'                                                           format = "%Y%m%d"),
-#'                                               MA_code = "0013"
-#'                                              )
+#'                                                   MA_code = "0013"
+#'                                                         )
 #'          }
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object of quality assurance
 #'           performance evaluation data in the AQS submissions transaction
@@ -581,7 +578,8 @@ aqs_qa_annualperformanceevaltransaction_by_MA <- function(parameter, bdate,
                                bdate = bdate,
                                edate = edate,
                                MA_code = MA_code,
-                               service = "transactionsQaAnnualPerformanceEvaluations"
+                               service =
+                                 "transactionsQaAnnualPerformanceEvaluations"
                                )
 
   tqaape <- purrr::pmap(.l = params, .f = aqs_services_by_MA)

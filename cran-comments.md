@@ -1,11 +1,68 @@
 ---
 title: "cran-comments"
 author: "Clinton Mccrowey"
-date: "3/29/2021"
+date: "01/04/2023"
 output: md_document
 ---
 
 # cran-comments for RAQSAPI
+## RAQSAPI 2.0.5
+  - remove depricated package:goodpractice from SUGGESTS
+  - Added the ability to display server side messages for errors in API calls.
+  - Added a new CITATION.cff for thanks to R package cffr.
+  - New hexstciker.
+  - aqs_isavailable no longer accepts the return_header parameter, this function
+    just returns a tibble and not a AQS_Data Mart_APIv2 object.
+  - fixed an issue where the duration parameter was being ignored in
+    aqs_sampledata_by_* functions.
+  - add note to aqs_sampledurations function about not returning calculated
+    durations
+  *RAQSAPI 2.0.4 was not published on CRAN.
+  - The rate limit has been changed from a constant 5 second wait time to a
+    maximum of 10 requests per minute.
+  - RAQSAPI will retry certain requests if they fail for a maximum of 5 times
+    after a 10 second wait time.
+  - Moved to the httr2 backend, removed desc from suggests and
+    httr, and jsonlite as from imports.
+  - There is an issue with curl connecting to the AQS Datamart API, on
+    windows platforms, as a temporary fix, RAQSAPI will default to using
+    the Schannel curl backend.
+  - modify QA Collocated Assessments by County and by Site unit tests and
+    example code to reflect modified data.
+  - update CITATION file to the new style citation.
+  - Package documentation referenced \*dailydata\* functions incorrectly,
+    functions should be called \*dailysummary\* 
+  - Switched license from CC0 to MIT, RAQSAPI will use MIT going forward.
+  - a note Rd tag was added to the checkaqsparams function
+  - minor correction to the documentation of the aqs_monitors_by_state
+    function
+  - Update github actions to the new workflow available through
+    package:usethis-2.1.6
+    + usethis::use_github_action("test-coverage") to add coverage
+    information
+    in the git repository.
+    + usethis::use_github_pages() to create a github page.
+  
+### Test environments
+* local R installation, Windows 11 R 4.4.0
+* Windows-latest (release) (via Github_actions), R 4.4.0
+* MacOS-latest (release) (via Github_actions), R 4.4.0
+* Ubuntu-22.04.4 (release) (via Github_actions), R 4.4.0.1
+* Ubuntu-22.04.4 (devel) (via Github_actions), R (unstable) (2024-06-10
+    r86715)
+* Ubuntu-22.04.4 (old-release) (via Github_actions), R 4.3.3
+
+## RAQSAPI 2.0.4
+*Important API change
+  - aqs_qa_annualperformanceeval* and aqs_qa_annualperformanceevaltransaction*
+    functions have been renamed with more appropriate spelling. This may effect
+    external code that depends on these functions.
+  - many update to the reference documentation to improve consistency and
+    fix issues.
+  - Minor updates to the README.
+  - Minor improvements to code.
+  - This version was not published on CRAN but builds are availble on github.
+
 ## RAQSAPI 2.0.3
 * this is a minor release
 * Remove dependency on package:gtools.

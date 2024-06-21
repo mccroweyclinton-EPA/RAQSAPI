@@ -51,10 +51,10 @@ for a parameter code aggregated by matching input parameter and
 pqao_code provided for bdate - edate time frame.
 }
 \note{
-The AQS API only allows for a single year of
-qaAnnualPerformanceEvaluations to be retrieved at a time. This
-function conveniently extracts date information from the bdate
-and edate parameters then makes repeated calls to the AQSAPI
+The AQS API only allows for a single year of quality assurance
+Annual Performance Evaluations transaction data to be retrieved at a
+time. This function conveniently extracts date information from the
+bdate and edate parameters then makes repeated calls to the AQSAPI
 retrieving a maximum of one calendar year of data at a time. Each
 calendar year of data requires a separate API call so multiple years
 of data will require multiple API calls. As the number of years of
@@ -65,11 +65,11 @@ server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
-#Returns an AQS_Data Mart_APIv2 S3 object or a tibble
-          #   containing annual performance evaluation data for ozone in
-          #   where the PQAO is the Alabama Department of Environmental
-          #   Management (pqao_code 0013) for 2017 in RD format.
- \dontrun{aqs_qa_annualperformanceevaltransaction_by_pqao(parameter = "44201",
+#Returns a tibble containing annual performance evaluation data for
+          # ozone in where the PQAO is the Alabama Department of
+          # Environmental Management (pqao_code 0013) for 2017 in RD format.
+ \dontrun{aqs_qa_annualperformanceevaltransaction_by_pqao(parameter =
+                                                                     "44201",
                                                 bdate = as.Date("20170101",
                                                           format = "\%Y\%m\%d"),
                                                 edate = as.Date("20171231",
@@ -80,7 +80,7 @@ server. This operation has a linear run time of
 }
 \seealso{
 Other Aggregate _by_pqao functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_pqao}()},
+\code{\link{aqs_qa_annualperformanceeval_by_pqao}()},
 \code{\link{aqs_qa_blanks_by_pqao}()},
 \code{\link{aqs_qa_collocated_assessments_by_pqao}()},
 \code{\link{aqs_qa_flowrateaudit_by_pqao}()},

@@ -59,13 +59,16 @@ selected state
 Returns a table of monitors and related metadata at sites with the
 provided parameter, and stateFIPS for bdate - edate time frame.
 }
+\note{
+All monitors that operated between the bdate and edate will be returned
+}
 \section{by_state aggregate functions}{
 NA
 }
 
 \examples{
 # returns a tibble of SO2 monitors in Hawaii
-          #  that were operating on May 01, 2015
+          #  that were operating on May 01, 2017
  \dontrun{aqs_monitors_by_state(parameter="88101",
                                   bdate=as.Date("20170101",
                                                  format="\%Y\%m\%d"),

@@ -65,12 +65,12 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object that contains daily
 summary statistics for the given parameter for a single site. An
 AQS_Data Mart_APIv2 is a 2 item named list in which the first item
-(\$Header) is a tibble of header information from the AQS API and
-the second item (\$Data) is a tibble of the data returned.
+($Header) is a tibble of header information from the AQS API and
+the second item ($Data) is a tibble of the data returned.
 }
 \description{
 \lifecycle{stable}
-Returns multiple years of data where daily data is
+Returns multiple years of data where dailysummary data is
 aggregated at the site level. Returned is a daily summary
 matching the input parameter stateFIPS, countycode, and sitenum
 provided for bdate - edate time frame. Data is aggregated at the
@@ -110,7 +110,7 @@ API server. This operation has a linear run time of
 Other Aggregate _by_site functions: 
 \code{\link{aqs_annualsummary_by_site}()},
 \code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
+\code{\link{aqs_qa_annualperformanceeval_by_site}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_county}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
 \code{\link{aqs_qa_blanks_by_site}()},

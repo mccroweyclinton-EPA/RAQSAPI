@@ -1,18 +1,22 @@
 #' @importFrom magrittr `%>%`()
-test_that("by_MA functions", {
-testthat::skip_if_offline()
-testthat::skip_on_cran()
-server <- "AQSDatamartAPI"
-datamartAPI_user <- "test@aqs.api"
+#' @import testthat
+test_that("byMA functions", {
+  testthat::skip_on_cran()
+  testthat::skip_if_offline()
 
-datamartAPI_user <- "test@aqs.api"
-
+  if(file.exists("local.R"))
+  {
+    source("helper.R")
+    AQScredentials <- RAQSAPItestsetup_helper()
+    datamartAPI_user <- AQScredentials$datamartAPI_user
+    datamartAPI_key <- AQScredentials$datamartAPI_key
+  } else {
+    datamartAPI_user <- Sys.getenv("RAQSAPIUSERNAME", names = TRUE)
+    datamartAPI_key <- Sys.getenv("RAQSAPIKEY", names = TRUE)
+  }
   RAQSAPI::aqs_credentials(username = datamartAPI_user,
-                           key = "test"
-                           )
-
-  aqs_mas(return_header = TRUE)$Header$status %>%
-    expect_match(regexp = "Success")
+                           key = datamartAPI_key
+  )
 
   aqs_qa_blanks_by_MA(parameter = "88101",
                       bdate = as.Date("20180101", format = "%Y%m%d"),
@@ -58,14 +62,6 @@ datamartAPI_user <- "test@aqs.api"
                                     )[[1]]$Header$status %>%
     expect_match(regexp = "Success")
 
-  aqs_qa_one_point_qc_by_MA(parameter = "44201",
-                            bdate = as.Date("20180101", format = "%Y%m%d"),
-                            edate = as.Date("20180131", format = "%Y%m%d"),
-                            MA_code = "0660",
-                            return_header = TRUE
-                            )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
-
   aqs_qa_pep_audit_by_MA(parameter = "88101",
                          bdate = as.Date("20170601", format = "%Y%m%d"),
                          edate = as.Date("20170630", format = "%Y%m%d"),
@@ -82,14 +78,14 @@ datamartAPI_user <- "test@aqs.api"
                               )[[1]]$Header$status %>%
     expect_match(regexp = "Success")
 
-  aqs_qa_annualpeferomanceeval_by_MA(parameter = "44201",
-                                       bdate = as.Date("20170101",
-                                                       format = "%Y%m%d"),
-                                       edate = as.Date("20171231",
-                                                       format = "%Y%m%d"),
-                                       MA_code = "0013",
-                                       return_header = TRUE
-                                       )[[1]]$Header$status %>%
+  aqs_qa_annualperformanceeval_by_MA(parameter = "44201",
+                                     bdate = as.Date("20170101",
+                                                    format = "%Y%m%d"),
+                                    edate = as.Date("20171231",
+                                                    format = "%Y%m%d"),
+                                    MA_code = "0013",
+                                    return_header = TRUE
+                                    )[[1]]$Header$status %>%
     expect_match(regexp = "Success")
 
   aqs_qa_annualperformanceevaltransaction_by_MA(parameter = "44201",

@@ -72,8 +72,8 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object that contains quarterly
 summary statistics for an area within a latitude/longitude
 bounding box. An AQS_Data Mart_APIv2 is a 2 item named list in
-which the first item (\$Header) is a tibble of header information
-from the AQS API and the second item (\$Data) is a tibble of the
+which the first item ($Header) is a tibble of header information
+from the AQS API and the second item ($Data) is a tibble of the
 data returned.
 }
 \description{
@@ -94,15 +94,19 @@ that it will take to retrieve results. There is also a 5 second wait
 time inserted between successive API calls to prevent overloading the
 API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{    Also Note that for quarterly data, only the year portion of the bdate
+    and edate are used and all 4 quarters in the year are returned.
+}\if{html}{\out{</div>}}
 }
 \examples{
-# returns a tibble containing ozone quarterly summaries
-          #  in the vicinity of central Alabama for the first two days
-          #  in May, 2015
+# Returns a tibble containing ozone quarterly summaries
+          #  in the vicinity of central Alabama for each quarter in
+          #  between 2015 - 2017
           \dontrun{aqs_quarterlysummary_by_box(parameter = "44201",
-                                               bdate = as.Date("20150501",
+                                               bdate = as.Date("20150101",
                                                           format = "\%Y\%m\%d"),
-                                               edate = as.Date("20170502",
+                                               edate = as.Date("20171231",
                                                           format = "\%Y\%m\%d"),
                                                minlat = "33.3",
                                                maxlat = "33.6",
@@ -113,7 +117,7 @@ API server. This operation has a linear run time of
 }
 \seealso{
 Other Aggregate _by_state functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_state}()},
+\code{\link{aqs_qa_annualperformanceeval_by_state}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_state}()},
 \code{\link{aqs_quarterlysummary_by_cbsa}()},
 \code{\link{aqs_quarterlysummary_by_state}()},

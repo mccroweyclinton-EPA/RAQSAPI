@@ -52,8 +52,8 @@ addition to the data requested.}
 \value{
 a tibble or an AQS_Data Mart_APIv2 S3 object that is the return value
 from the AQS API. A AQS_Data Mart_APIv2 object is a 2 item named
-list in which the first item (\$Header) is a tibble of header
-information from the AQS API and the second item (\$Data) is a
+list in which the first item ($Header) is a tibble of header
+information from the AQS API and the second item ($Data) is a
 tibble of the data returned.
 }
 \description{
@@ -62,12 +62,15 @@ Returns a table of monitors at all sites with the provided
 parameter, aggregated by Core Based Statistical Area (CBSA) for
 bdate - edate time frame.
 }
+\note{
+All monitors that operated between the bdate and edate will be returned
+}
 \section{by_cbsa (By Core Based Statistical Area, as defined by the US Census Bureau) aggregate functions}{
 NA
 }
 
 \examples{
-# returns a tibble of NO2 monitors
+# returns a tibble of $NO_{2}$ monitors
           #  for Charlotte-Concord-Gastonia, NC cbsa that were operating
           #  on Janurary 01, 2017
           \dontrun{aqs_monitors_by_cbsa(parameter="42602",

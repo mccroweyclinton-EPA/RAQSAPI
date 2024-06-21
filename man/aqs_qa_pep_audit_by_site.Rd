@@ -64,9 +64,9 @@ purposes in addition to the data requested.}
 \value{
 a tibble or an AQS_Data Mart_APIv2 S3 object containing quality
 assurance PEP audit data within a site. A AQS_Data_Mart_APIv2
-object is a 2 item named list in which the first item (\$Header) is
+object is a 2 item named list in which the first item ($Header) is
 a tibble of header information from the AQS API and the second item
-(\$Data) is a tibble of the data returned.
+($Data) is a tibble of the data returned.
 }
 \description{
 \lifecycle{stable}
@@ -75,7 +75,7 @@ data aggregated by parameter code, stateFIPS, countycode and
 site number for the time frame between bdate and edate.
 }
 \note{
-The AQS API only allows for a single year of one point pep audit data
+The AQS API only allows for a single year of pep audit data
 to be retrieved at a time. This function conveniently extracts date
 information from the bdate and edate parameters then makes repeated
 calls to the AQSAPI retrieving a maximum of one calendar year of data
@@ -88,18 +88,18 @@ API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
-# returns a aqs_v2 S3 object of pep Audit data for FRM PM2.5
+# returns a tibble of pep Audit data for FRM PM2.5
           #  at the Huntsville Old Airport site (\#0014) in Madison County,
           #  AL for 2017 - 2019.
  \dontrun{aqs_qa_pep_audit_by_site(parameter = "88101",
                                    bdate = as.Date("20170101",
                                                    format = "\%Y\%m\%d"),
                                    edate = as.Date("20191231",
-                                                     format = "\%Y\%m\%d"),
+                                                   format = "\%Y\%m\%d"),
                                    stateFIPS = "01",
                                    countycode = "089",
                                    sitenum = "0014"
-                                       )
+                                   )
            }
 }
 \seealso{
@@ -107,7 +107,7 @@ Other Aggregate _by_site functions:
 \code{\link{aqs_annualsummary_by_site}()},
 \code{\link{aqs_dailysummary_by_site}()},
 \code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
+\code{\link{aqs_qa_annualperformanceeval_by_site}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_county}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
 \code{\link{aqs_qa_blanks_by_site}()},

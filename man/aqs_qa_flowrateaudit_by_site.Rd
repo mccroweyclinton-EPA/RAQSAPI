@@ -65,8 +65,8 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object containing flow rate
 audit data for the requested sitenum, countycode and stateFIPS. An
 AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-first item (\$Header) is a tibble of header information from the
-AQS API and the second item (\$Data) is a tibble of the data
+first item ($Header) is a tibble of header information from the
+AQS API and the second item ($Data) is a tibble of the data
 returned.
 }
 \description{
@@ -108,7 +108,7 @@ Other Aggregate _by_site functions:
 \code{\link{aqs_annualsummary_by_site}()},
 \code{\link{aqs_dailysummary_by_site}()},
 \code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
+\code{\link{aqs_qa_annualperformanceeval_by_site}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_county}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
 \code{\link{aqs_qa_blanks_by_site}()},

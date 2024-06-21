@@ -75,7 +75,7 @@ countycode and stateFIPS provided for bdate - edate time frame.
 Includes data both in submitted and standard units
 }
 \note{
-The AQS API only allows for a single year of transactiondata to be
+The AQS API only allows for a single year of transaction data to be
 retrieved at a time. This function conveniently extracts date
 information from the bdate and edate parameters then makes repeated
 calls to the AQSAPI retrieving a maximum of one calendar year of
@@ -108,7 +108,7 @@ Other Aggregate _by_site functions:
 \code{\link{aqs_annualsummary_by_site}()},
 \code{\link{aqs_dailysummary_by_site}()},
 \code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
+\code{\link{aqs_qa_annualperformanceeval_by_site}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_county}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
 \code{\link{aqs_qa_blanks_by_site}()},

@@ -21,9 +21,9 @@ returned.
 }
 \description{
 \lifecycle{stable}
-Returns the change history  to the AQS Data Mart API.
+Returns the change history to the AQS Data Mart API.
 }
 \examples{
- # read the Data Mart API revision history
+ # Returns a DataFrame of the EPA AQS Data Mart API revision history
  #  \dontrun{aqs_revisionHistory()}
 }

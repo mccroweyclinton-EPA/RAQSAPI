@@ -1,6 +1,5 @@
 user_agent <- "RAQSAPI library for R"
 server <- "AQSDatamartAPI"
-#AQS_domain <- "aqs.epa.gov"
 
 
 #' @title checkaqsparams
@@ -10,10 +9,14 @@ server <- "AQSDatamartAPI"
 #' @param  ... variables to be checked. Must be one of the parameters
 #'                         being exported RAQSAPI functions. All other
 #'                         variables will be ignored.
-#' @note  this function will only check the variables exported by RAQSAPI meant
+#' @note  This function will only check the variables exported by RAQSAPI meant
 #'           to be used in RAQSAPI functions. This function is not meant to be
 #'           called directly by the end user or to be called outside of RAQSAPI.
-#'          variables will remain unchanged.
+#'           variables will remain unchanged.
+#'        Escaping of variables is provided by the AQS DataMart API, this
+#'          function is provided to assist users from receiving confusing
+#'          results from incorrect parameters but should not be used to verify
+#'          that parameters are properly escaped.
 #' @importFrom lubridate is.Date
 #' @importFrom rlang abort format_error_bullets call_name
 #' @importFrom dplyr between
@@ -24,7 +27,7 @@ server <- "AQSDatamartAPI"
 #' @noRd
 checkaqsparams <- function(...)
 {
-  #Note: the variable errmessage does not follow this project's style guidelines,
+  #Note: the variable errmessage does not follow this project's style
   #  This is to ensure that the output string format looks nice.
   errmessage <- vector()
   error <- FALSE
@@ -39,7 +42,7 @@ checkaqsparams <- function(...)
         )
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "parameter must be a 5 digit number (represented as a character string)"
                         )
     }
@@ -52,7 +55,7 @@ checkaqsparams <- function(...)
         )
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "stateFIPS must be a two digit number (represented as a character string),
        please pad stateFIPS less than 2 digits with leading zeros"
                         )
@@ -65,7 +68,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$countycode))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "countycode must be a three digit number (represented as a character
       string), please pad countycode less than three digits with leading zeros"
                         )
@@ -78,7 +81,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$sitenum))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "sitenum must be a four digit number (represented as a character string),
        please pad sitenum less than four digits with leading zeros"
                        )
@@ -92,7 +95,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$MA_code))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "MA_code must be a three or four digit number (represented as a character
        string), please pad MA_code less than three or four digits with
        leading zeros"
@@ -107,7 +110,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$pqao_code))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "pqao_code must be a three or four digit number (represented as a
       character string), please pad pqao_code less than three or four digits
       with leading zeros"
@@ -120,7 +123,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$cbsa_code))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "cbsa_code must be a five digit number (represented as a character
       string), please pad cbsa_code less than five digits with leading zeros"
                         )
@@ -132,7 +135,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$POC))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "POC must be a single digit number (represented as a character string)"
                        )
     }
@@ -142,7 +145,7 @@ checkaqsparams <- function(...)
     if (!is.Date(ellipsis_args$bdate))
     {
       error <- TRUE
-      errmessage %<>% c('x' = "bdate must be an R date object")
+      errmessage %<>% c("x" = "bdate must be an R date object")
         }
   }
   if ("edate" %in% names(ellipsis_args))
@@ -150,7 +153,7 @@ checkaqsparams <- function(...)
     if (!is.Date(ellipsis_args$edate))
     {
       error <- TRUE
-      errmessage %<>% c('x' = "edate must be an R date object")
+      errmessage %<>% c("x" = "edate must be an R date object")
     }
   }
   if ("cbdate" %in% names(ellipsis_args))
@@ -158,7 +161,7 @@ checkaqsparams <- function(...)
     if (!is.Date(ellipsis_args$cbdate) & !is.null(ellipsis_args$cbdate))
     {
       error <- TRUE
-      errmessage %<>% c('x' = "cbdate must be an R date object")
+      errmessage %<>% c("x" = "cbdate must be an R date object")
     }
   }
   if ("cedate" %in% names(ellipsis_args))
@@ -166,7 +169,7 @@ checkaqsparams <- function(...)
     if (!is.Date(ellipsis_args$cedate) & !is.null(ellipsis_args$cedate))
     {
       error <- TRUE
-      errmessage %<>% c('x' = "cedate must be an R date object")
+      errmessage %<>% c("x" = "cedate must be an R date object")
     }
   }
   if ("email" %in% names(ellipsis_args))
@@ -174,7 +177,7 @@ checkaqsparams <- function(...)
     if (!isValidEmail(ellipsis_args$email))
     {
       error <- TRUE
-      errmessage %<>% c('x' = "invalid email address entered")
+      errmessage %<>% c("x" = "invalid email address entered")
     }
   }
   if ("minlat" %in% names(ellipsis_args))
@@ -183,7 +186,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$minlat))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "minlat must be a numeric (expressed as a string) between -90 and 90"
                        )
     }
@@ -194,7 +197,7 @@ checkaqsparams <- function(...)
         !is.character(ellipsis_args$minlat))
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "maxlat must be a numeric (expressed as a string) between -90 and 90"
                         )
     }
@@ -206,7 +209,7 @@ checkaqsparams <- function(...)
        )
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "minlon must be a numeric (expressed as a string) between -180 and 180"
                         )
     }
@@ -218,7 +221,7 @@ checkaqsparams <- function(...)
        )
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "maxlon must be a numeric (expressed as a string) between -180 and 180"
                         )
     }
@@ -232,7 +235,7 @@ checkaqsparams <- function(...)
         )
     {
       error <- TRUE
-      errmessage %<>% c('x' =
+      errmessage %<>% c("x" =
       "duration must be a character from '1' to '9' or 'A' to 'Z'
        (represented as a character string)"
                         )
@@ -243,16 +246,15 @@ checkaqsparams <- function(...)
       if (!is.logical(ellipsis_args$return_header))
         {
           error <- TRUE
-          errmessage %<>% c('x' = "return_header must be of type logical")
+          errmessage %<>% c("x" = "return_header must be of type logical")
         }
   }
   if (error)
     {
       callingfunction <- rlang::call_name(sys.call(sys.parent(2)))
-      #callingfunction <- rlang::call_frame(n = 2)$fn_name
       if (is.null(callingfunction)) callingfunction <- "Unknown Environment"
       callingfunction <- glue(" in: {callingfunction}")
-      c('i' = callingfunction, errmessage) %>% abort
+      c("i" = callingfunction, errmessage) %>% abort
     }
 }
 
@@ -319,18 +321,43 @@ format_multiple_params_for_api <- function(x, separator=",")
 }
 
 
-#' @title aqs_ratelimit
-#' @description a helper function that should not be called externally, used
-#'                 as a primitive rate limit function for aqs.
-#' @param waittime the number of seconds, encoded as a numeric, that the API
-#'                     should wait after performing a API query
-#'                     (defaults to 5 seconds, as recommended by the AQS team).
-#' @return NULL
+#' @title RAQSAPI_error_msg
+#'
+#' @param AQSresponse a httr2 request object
+#' @importFrom glue glue
+#' @importFrom httr2 last_response resp_body_json
+#' @importFrom magrittr `%<>%`
+#' @importFrom stringr str_replace_all
+#'
+#' @description A helper function that is called by httr2::req_error when an
+#'              error is encountered performing a request. This function returns
+#'              a helpful error message for users. This function is not intended
+#'              to be called directly by end users and should only be called
+#'              within the aqs function.
+#'
+#' @return a string error message that is formatted for httr2 to display
+#'         request errors for end users.
 #' @noRd
-aqs_ratelimit <- function(waittime=5L)
+#'
+#' @example None
+RAQSAPI_error_msg <- function(AQSresponse)
 {
-  Sys.sleep(waittime)
+  #nocov start
+  AQSerr <- last_response() %>%
+              resp_body_json()
+
+  #debug
+  msg <- glue("At server request time: {AQSresponse$headers$Date}
+               RAQSAPI experienced an error while processing the following url:
+               {AQSresponse$url}
+               with status_code: {AQSresponse$status_code}
+               and status message: {AQSresponse$status}
+               Server error message: {AQSerr$Header[[1]]$error}")
+
+     return(msg)
+  #nocov end
 }
+
 
 #' @title aqs
 #' @description a helper function sends a AQS RESTful request to the AQS API
@@ -365,95 +392,63 @@ aqs_ratelimit <- function(waittime=5L)
 #' @importFrom dplyr mutate select arrange
 #' @importFrom lubridate ymd_hm
 #' @importFrom glue glue
-#' @importFrom rlang .data is_empty
 #' @importFrom tibble as_tibble
-#' @importFrom httr GET http_type content http_error status_code modify_url
-#'               user_agent message_for_status
+#' @importFrom rlang caller_call
+#' @importFrom httr2 request req_user_agent req_url_path_append resp_body_json
+#'                   req_perform req_options req_retry req_throttle req_error
 #' @return a AQS_DATAMART_APIv2 S3 object that is the return value from the
 #'            AQS API. A AQS_DATAMART_APIv2 is a 2 item named list in which the
 #'            first item ($Header) is a tibble of header information from the
 #'            AQS API and the second item ($Data) is a tibble of the data
 #'            returned.
 #' @noRd
-aqs <- function(service, filter = NA, user = NA,
+aqs <- function(service, filter = NULL, user = NA,
                     user_key = NA, variables = NULL, AQS_domain = "aqs.epa.gov")
 {
-  if (is.null(getOption("aqs_username")) |
-      is.null(getOption("aqs_key")))
-  {stop("please enter user credentials before using RAQSAPI functions,\n
-         please refer to \'?aqs_credentials()\' for useage infomation \n")}
+  if (is.null(user) | is.null(user_key))
+         {stop("please enter user credentials before using RAQSAPI functions,\n
+                please refer to \'?aqs_credentials()\' for useage infomation \n"
+              )
+          }
+  # AQS DataMart API does not accept headers so user_agent not working
+  # user_agent <- glue("User:{user} via RAQSAPI-{packageVersion('RAQSAPI')}
+  #                     library for R")
 
-  user_agent <- glue("User:{user} via RAQSAPI library for R") %>%
-    httr::user_agent()
+  AQSpath <- glue("https://{AQS_domain}/data/api/{service}/{filter}?") %>%
+    glue(format_variables_for_api(c(list(email = I(user), key = user_key),
+                                  variables)))
+  AQSrequest <- AQSpath %>%
+    request() %>%
 
-   if (rlang::is_empty(service) & rlang::is_empty(filter))
-  {
-    path <- glue::glue("/data/api/")
-  }else if (rlang::is_empty(service))
-  {
-    path <- glue::glue("/data/api/")
-  }else if (rlang::is_empty(filter))
-  {
-    path <- glue::glue("/data/api/{service}")
-  }else {
-    path <- glue::glue("/data/api/{service}/{filter}")
-  }
+    req_throttle(rate = 10/60, realm = "RAQSAPI") %>%
+    req_retry(max_tries = 5, max_seconds = 30, backoff = ~10) %>%
+    req_error(body = RAQSAPI_error_msg)
+    # AQS DataMart API does not accept headers so user_agent not working
+    #%>% req_user_agent(string = user_agent)
 
-  query <- c(email = I(user),
-             key = I(user_key),
-             variables,
-             recursive = TRUE) %>%
-    as.list
-  #modify_url interprets NA's as literals therefore will need to remove all NA
-  # values before continuing
-  query <- query[!is.na(query)]
-  url <- httr::modify_url(scheme = "https",
-                          hostname = AQS_domain,
-                          url = path,
-                          query = query
-                         )
+    AQSresponse <- AQSrequest %>%
+      req_perform(verbosity = 0)
 
-    AQSresult <- httr::GET(url,
-                           user_agent
-                           )
-  aqs_ratelimit()
-  if (httr::http_type(AQSresult) != "application/json") {
-    stop("API did not return json", call. = TRUE)
-  }
-
-  out <- jsonlite::fromJSON(httr::content(AQSresult, "text"),
-                            simplifyDataFrame = TRUE)
-  if ("Header" %in% names(out)) {out$Header %<>% tibble::as_tibble()}
-  if ("Data" %in% names(out)) {out$Data %<>% tibble::as_tibble()}
-  if ("Error" %in% names(out)) {out$Error %<>% tibble::as_tibble()}
-
-  if (httr::http_error(AQSresult))
+    if(httr2::resp_is_error(AQSresponse))
     {
-       print("RAQSAPI has encountered an error")
-
-       stop(httr::message_for_status(AQSresult),
-            call. = FALSE
-           )
-     }
-  out <- structure(.Data = out, class = "AQS_DATAMART_APIv2")
-
-  out$Data %<>% as_tibble
-  out$Header %<>% as_tibble
-  out$Data$datetime <- NULL
-
-  #arrange $Data portion by date_local, time_local if present.
-  #  this is done by creating a temporary variable named datetime
-  #  corercing datetime into a POSIXct object, then arranging $Data by this
-  #  variable. Lastly the temporary variable is removed.
-  if (all(c("date_local", "time_local") %in% colnames(out$Data)))
-    {
-      out$Data %<>% dplyr::mutate(datetime = glue("{date_local} {time_local}"))
-      out$Data %<>% dplyr::mutate(datetime = ymd_hm(.data$`datetime`))
-      out$Data %<>% dplyr::arrange(.data$datetime)
-      out$Data %<>% dplyr::select(-.data$datetime)
+      message(glue("RAQSAPI experienced an error with in aqs function from
+                   {rlang::caller_call(n=2)} /n
+                   url: {AQSpath}"))
     }
-  return(out)
+
+    AQSresponse %<>%
+      resp_body_json(simplifyVector = TRUE,
+                     simplifyDataFrame = TRUE)
+    AQSresult <- vector("list", length = 2)
+    AQSresult[[1]] <- AQSresponse$Header
+    AQSresult[[2]] <- AQSresponse$Data
+    names(AQSresult) <- c("Header", "Data")
+    AQSresult <- structure(.Data = AQSresult, class = "AQS_DATAMART_APIv2")
+     #aqs_ratelimit() #depricated
+     return(AQSresult)
+
 }
+
 
 #' @title isValidEmail
 #' @description a helper function that checks the input string has the form
@@ -687,17 +682,18 @@ aqs_services_by_state <- function(parameter, bdate, edate, stateFIPS,
                                   cbdate = NA_Date_, cedate = NA_Date_,
                                   AQS_domain = "aqs.epa.gov")
 {
+
   aqs(service = service,
-          filter = "byState",
-          user =  getOption("aqs_username"),
-          user_key =  getOption("aqs_key"),
-          variables = list(param = format_multiple_params_for_api(parameter),
-                           bdate = format(bdate, format = "%Y%m%d"),
-                           edate = format(edate, format = "%Y%m%d"),
-                           state = stateFIPS,
-                           duration = duration,
-                           cbdate = cbdate,
-                           cedate = cedate
+      filter = "byState",
+      user =  getOption("aqs_username"),
+      user_key =  getOption("aqs_key"),
+      variables = list(param = format_multiple_params_for_api(parameter),
+                       bdate = format(bdate, format = "%Y%m%d"),
+                       edate = format(edate, format = "%Y%m%d"),
+                       state = stateFIPS,
+                       duration = duration,
+                       cbdate = cbdate,
+                       cedate = cedate
           ),
       AQS_domain = AQS_domain
   )
@@ -1013,7 +1009,7 @@ aqs_metadata_service <- function(filter, service = NA_character_,
 #' @title renameaqsvariables
 #' @description \lifecycle{experimental}
 #'                This is a helper function not intended to be called directly
-#'                by the end user.renames the two columns returned in the $Data
+#'                by the end user. Renames the two columns returned in the $Data
 #'                portion of a RAQSAPI_v2 object from "value"and
 #'                "value_represented" to name1 and name2 respectively.
 #' @importFrom dplyr rename rename_at vars
@@ -1021,19 +1017,21 @@ aqs_metadata_service <- function(filter, service = NA_character_,
 #' @param aqsobject A RAQSAPI_v2 object
 #' @param name1 a character string representing the new name of the first
 #'                column of the $Data portion of the RAQSAPI_v2 object.
+#' @param name2 a character string representing the new name of the second
+#'                column of the $Data portion of the RAQSAPI_v2 object.
 #' @noRd
 renameaqsvariables <- function(aqsobject, name1, name2)
 {
 if (is.null(aqsobject))
     {
     return(aqsobject)
-    } else if (class(aqsobject) == "AQS_DATAMART_APIv2")
+    } else if(inherits(x = aqsobject, what = "AQS_DATAMART_APIv2"))
              {
                   #using tidyevaluation and substitute operator
                   aqsobject$Data %<>%  dplyr::rename(!!name1 := 1)
                   aqsobject$Data %<>%  dplyr::rename(!!name2 := 2)
 
-              } else if (all(class(aqsobject[[1]]) == "AQS_DATAMART_APIv2"))
+              } else if (all(inherits(x = aqsobject[[1]], what = "AQS_DATAMART_APIv2")))
                        {
                           #using tidyevaluation and substitute operator
                           aqsobject %<>%  lapply("[[", "Data") %>%
@@ -1109,6 +1107,7 @@ aqsmultiyearparams <- function(parameter, bdate, edate, service, ...)
                     stateFIPS = ellipsis_args$stateFIPS,
                     countycode = ellipsis_args$countycode,
                     sitenum = ellipsis_args$sitenum,
+                    duration = ellipsis_args$duration,
                     service = service,
                     cbdate = ellipsis_args$cbdate,
                     cedate = ellipsis_args$cedate,

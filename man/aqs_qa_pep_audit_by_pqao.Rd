@@ -52,8 +52,8 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object containing quality
 assurance PEP audit data for a Primary Quality Assurance
 Organization. A AQS_Data_Mart_APIv2 object is a 2 item named list
-in which the first item (\$Header) is a tibble of header
-information from the AQS API and the second item (\$Data) is a
+in which the first item ($Header) is a tibble of header
+information from the AQS API and the second item ($Data) is a
 tibble of the data returned.
 }
 \description{
@@ -63,7 +63,7 @@ data aggregated by Primary Quality Assurance Organization
 (PQAO) code for the time frame between bdate and edate.
 }
 \note{
-The AQS API only allows for a single year of one point pep audit data
+The AQS API only allows for a single year of pep audit data
 to be retrieved at a time. This function conveniently extracts date
 information from the bdate and edate parameters then makes repeated
 calls to the AQSAPI retrieving a maximum of one calendar year of data
@@ -77,8 +77,8 @@ API server. This operation has a linear run time of
 }
 \examples{
 # returns a tibble of PEP audit data for
-  #  June 2017 where the pqao is the Alabama Department of
-  #  Environmental Management (agency 0013)
+          #  June 2017 where the pqao is the Alabama Department of
+          #  Environmental Management (agency 0013)
   \dontrun{aqs_qa_pep_audit_by_pqao(parameter = "88101",
                                     bdate = as.Date("20170601",
                                                     format = "\%Y\%m\%d"
@@ -91,7 +91,7 @@ API server. This operation has a linear run time of
 }
 \seealso{
 Other Aggregate _by_pqao functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_pqao}()},
+\code{\link{aqs_qa_annualperformanceeval_by_pqao}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_pqao}()},
 \code{\link{aqs_qa_blanks_by_pqao}()},
 \code{\link{aqs_qa_collocated_assessments_by_pqao}()},

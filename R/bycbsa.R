@@ -6,6 +6,7 @@
 #'  Returns a table of monitors at all sites with the provided
 #'    parameter, aggregated by Core Based Statistical Area (CBSA) for
 #'    bdate - edate time frame.
+#' @note All monitors that operated between the bdate and edate will be returned
 #' @family Aggregate _by_cbsa functions
 #' @inheritParams aqs_services_by_cbsa
 #' @importFrom magrittr `%<>%`
@@ -14,7 +15,7 @@
 #'                        that contains header information returned from the
 #'                        API server mostly used for debugging purposes in
 #'                        addition to the data requested.
-#' @examples # returns a tibble of NO2 monitors
+#' @examples # returns a tibble of $NO_{2}$ monitors
 #'           #  for Charlotte-Concord-Gastonia, NC cbsa that were operating
 #'           #  on Janurary 01, 2017
 #'           \dontrun{aqs_monitors_by_cbsa(parameter="42602",
@@ -27,8 +28,8 @@
 #'                    }
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object that is the return value
 #'            from the AQS API. A AQS_Data Mart_APIv2 object is a 2 item named
-#'            list in which the first item (\$Header) is a tibble of header
-#'            information from the AQS API and the second item (\$Data) is a
+#'            list in which the first item ($Header) is a tibble of header
+#'            information from the AQS API and the second item ($Data) is a
 #'            tibble of the data returned.
 #' @export
 aqs_monitors_by_cbsa <- function(parameter, bdate, edate, cbsa_code,
@@ -95,7 +96,7 @@ aqs_monitors_by_cbsa <- function(parameter, bdate, edate, cbsa_code,
 #'           AQS_Data Mart_APIv2 is a 2 item named list in which the first item
 #'           /(/$Header/) is a tibble of header information from the AQS API and
 #'           the second item /(/$Data/) is a tibble of the data returned.
-#' @examples # returns an aqs_v2 s3 object which contains NO2 data
+#' @examples # returns tibble which contains $NO_{2}$ data
 #'           #  for Charlotte-Concord-Gastonia, NC cbsa for
 #'           #  Janurary 1, 2015 - Janurary 01, 2017
 #'           \dontrun{aqs_sampledata_by_cbsa(parameter = "42602",
@@ -162,11 +163,11 @@ aqs_sampledata_by_cbsa <- function(parameter, bdate, edate, cbsa_code,
 #'   purposes in addition to the data requested.
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object that containing annual
 #'           summary data for the cbsa_code requested. A AQS_Data Mart_APIv2 is
-#'           a 2 item named list in which the first item (\$Header) is a tibble
-#'           of header information from the AQS API and the second item (\$Data)
+#'           a 2 item named list in which the first item ($Header) is a tibble
+#'           of header information from the AQS API and the second item ($Data)
 #'           is a tibble of the data returned.
-#' @examples # returns a tibble of annual sunnary NO2
-#'           #  data the for Charlotte-Concord-Gastonia, NC cbsa for
+#' @examples # Returns a tibble of annual summary $NO_{2}$
+#'           #  data the for Charlotte-Concord-Gastonia, NC cbsa on
 #'           #  Janurary 01, 2017
 #'           \dontrun{aqs_annualsummary_by_cbsa(parameter = "42602",
 #'                                              bdate = as.Date("20170101",
@@ -229,10 +230,10 @@ aqs_annualsummary_by_cbsa <- function(parameter, bdate, edate, cbsa_code,
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object that contains daily
 #'           summary statistics for the given parameter for a single cbsa_code.
 #'           An AQS_Data Mart_APIv2 is a 2 item named list in which the first
-#'           item (\$Header) is a tibble of header information from the AQS API
-#'           and the second item (\$Data) is a tibble of the data returned.
-#' @examples # returns a tibble of daily summary NO2
-#'           #  data the for Charlotte-Concord-Gastonia, NC cbsa for
+#'           item ($Header) is a tibble of header information from the AQS API
+#'           and the second item ($Data) is a tibble of the data returned.
+#' @examples # Returns a tibble of $NO_{2}$ daily summary
+#'           #  data the for Charlotte-Concord-Gastonia, NC cbsa on
 #'           #  Janurary 01, 2017
 #'           \dontrun{aqs_dailysummary_by_cbsa(parameter = "42602",
 #'                                                bdate = as.Date("20170101",
@@ -283,6 +284,9 @@ aqs_dailysummary_by_cbsa <- function(parameter, bdate, edate, cbsa_code,
 #'         time inserted between successive API calls to prevent overloading the
 #'         API server. This operation has a linear run time of
 #'         /(Big O notation: O/(n + 5 seconds/)/).
+#'
+#'         Also Note that for quarterly data, only the year portion of the bdate
+#'         and edate are used and all 4 quarters in the year are returned.
 #' @family Aggregate _by_state functions
 #' @inheritParams aqs_services_by_cbsa
 #' @importFrom magrittr `%<>%`
@@ -294,15 +298,15 @@ aqs_dailysummary_by_cbsa <- function(parameter, bdate, edate, cbsa_code,
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object that contains quarterly
 #'           summary statistics for the given parameter for a stateFIPS.
 #'           An AQS_Data Mart_APIv2 is a 2 item named list in which the first
-#'           item (\$Header) is a tibble of header information from the AQS API
-#'           and the second item (\$Data) is a tibble of the data returned.
-#' @examples # returns a tibble of quartyerly summary NO2
+#'           item ($Header) is a tibble of header information from the AQS API
+#'           and the second item ($Data) is a tibble of the data returned.
+#' @examples # Returns a tibble of $NO_{2}$ quartyerly summary
 #'           #  data the for Charlotte-Concord-Gastonia, NC cbsa for
-#'           #  Janurary 01, 2017
+#'           #  each quarter in 2017.
 #'           \dontrun{aqs_quarterlysummary_by_cbsa(parameter = "42602",
 #'                                                 bdate = as.Date("20170101",
 #'                                                           format = "%Y%m%d"),
-#'                                                 edate = as.Date("20190101",
+#'                                                 edate = as.Date("20171231",
 #'                                                           format = "%Y%m%d"),
 #'                                                 cbsa_code = "16740"
 #'                                                 )

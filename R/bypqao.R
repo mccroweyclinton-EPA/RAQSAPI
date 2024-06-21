@@ -8,8 +8,8 @@
 #'        to assess if contamination is occurring during the transport
 #'        or handling of the samples. Data is aggregated by
 #'        Primary Quality Assurance Organization (PQAO).
-#' @note The AQS API only allows for a single year of qa_blank data to be
-#'         retrieved at a time. This function conveniently extracts date
+#' @note The AQS API only allows for a single year of flow rate audit data to
+#'         be retrieved at a time. This function conveniently extracts date
 #'         information from the bdate and edate parameters then makes repeated
 #'         calls to the AQSAPI retrieving a maximum of one calendar year of data
 #'         at a time. Each calendar year of data requires a separate API call so
@@ -31,7 +31,7 @@
 #'           AQS_Data Mart_APIv2 is a 2 item named list in which the first item
 #'           ($Header) is a tibble of header information from the AQS API and
 #'           the second item ($Data) is a tibble of the data returned.
-#' @examples # returns tibble of PM2.5 blank data for
+#' @examples # Returns tibble of PM2.5 blank data in
 #'           #  January 2018 where the PQAO is the Alabama Department of
 #'           #  Environmental Management (agency 0013)
 #'           \dontrun{aqs_qa_blanks_by_pqao(parameter = "88101",
@@ -72,17 +72,17 @@ aqs_qa_blanks_by_pqao <- function(parameter, bdate, edate, pqao_code,
 #'                 matching input parameter, and Primary Quality Assurance
 #'                 Organisation (PQAO) code provided for bdate - edate
 #'                 time frame.
-#' @note The AQS API only allows for a single year of collocated assessments to
-#'         be retrieved at a time. This function conveniently extracts date
-#'         information from the bdate and edate parameters then makes repeated
-#'         calls to the AQSAPI retrieving a maximum of one calendar year of data
-#'         at a time. Each calendar year of data requires a separate API call so
-#'         multiple years of data will require multiple API calls. As the number
-#'         of years of data being requested increases so does the length of time
-#'         that it will take to retrieve results. There is also a 5 second wait
-#'         time inserted between successive API calls to prevent overloading the
-#'         API server. This operation has a linear run time of
-#'         /(Big O notation: O/(n + 5 seconds/)/).
+#' @note The AQS API only allows for a single year of collocated assessments
+#'         data to be retrieved at a time. This function conveniently extracts
+#'         date information from the bdate and edate parameters then makes
+#'         repeated calls to the AQSAPI retrieving a maximum of one calendar
+#'         year of data at a time. Each calendar year of data requires a
+#'         separate API call so multiple years of data will require multiple API
+#'         calls. As the number of years of data being requested increases so
+#'         does the length of time that it will take to retrieve results. There
+#'         is also a 5 second wait time inserted between successive API calls to
+#'         prevent overloading the API server. This operation has a linear run
+#'         time of /(Big O notation: O/(n + 5 seconds/)/).
 #' @family Aggregate _by_pqao functions
 #' @inheritParams aqs_services_by_pqao
 #' @importFrom magrittr `%<>%`
@@ -95,8 +95,8 @@ aqs_qa_blanks_by_pqao <- function(parameter, bdate, edate, pqao_code,
 #'           An AQS_Data Mart_APIv2 is a 2 item named list in which the first
 #'           item ($Header) is a tibble of header information from the AQS API
 #'           and the second item ($Data) is a tibble of the data returned.
-#' @examples # returns a tibble of collocated assessment
-#'           #  data for FRM PM2.5 January 2013 where the PQAO is the Alabama
+#' @examples # Returns a tibble of collocated assessment
+#'           #  data for FRM PM2.5 in January 2013 where the PQAO is the Alabama
 #'           #  Department of Environmental Management (agency 0013)
 #'           \dontrun{aqs_qa_collocated_assessments_by_pqao(parameter = "88101",
 #'                                                   bdate = as.Date("20130101",
@@ -226,11 +226,11 @@ aqs_qa_flowrateverification_by_pqao <- function(parameter, bdate, edate,
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object containing flow rate
 #'           audit data  for the requested pqao_code. An
 #'           AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-#'           first item (\$Header) is a tibble of header information from the
-#'           AQS API and the second item (\$Data) is a tibble of the data
+#'           first item ($Header) is a tibble of header information from the
+#'           AQS API and the second item ($Data) is a tibble of the data
 #'           returned.
-#' @examples # returns a tibble of flow rate audit data for January
-#'   #  2018 where the PQAO is the Jefferson County, AL Department Of
+#' @examples # Returns a tibble of flow rate audit data for January
+#'   #  2018 where the PQAO is the Jefferson County, AL Department of
 #'   #  Health (agency 0550).
 #'   \dontrun{aqs_qa_flowrateaudit_by_pqao(parameter = "88101",
 #'                                         bdate = as.Date("20170101",
@@ -289,7 +289,7 @@ aqs_qa_flowrateaudit_by_pqao <- function(parameter, bdate, edate, pqao_code,
 #'   purposes in addition to the data requested.
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object containing one point
 #'            qc data within a pqao. A AQS_Data_Mart_APIv2 object is a
-#'            2 item named list in which the first item (\$Header) is a tibble
+#'            2 item named list in which the first item ($Header) is a tibble
 #'            of header information from the AQS API and the second item
 #' @examples
 #'  # returns a tibble of ozone One Point QC
@@ -332,7 +332,7 @@ aqs_qa_one_point_qc_by_pqao <- function(parameter, bdate, edate, pqao_code,
 #'                Returns a table of Performance Evaluation Program (PEP) audit
 #'                data aggregated by Primary Quality Assurance Organization
 #'                (PQAO) code for the time frame between bdate and edate.
-#' @note The AQS API only allows for a single year of one point pep audit data
+#' @note The AQS API only allows for a single year of pep audit data
 #'         to be retrieved at a time. This function conveniently extracts date
 #'         information from the bdate and edate parameters then makes repeated
 #'         calls to the AQSAPI retrieving a maximum of one calendar year of data
@@ -353,12 +353,12 @@ aqs_qa_one_point_qc_by_pqao <- function(parameter, bdate, edate, pqao_code,
 #' @return a tibble or an AQS_Data Mart_APIv2 S3 object containing quality
 #'           assurance PEP audit data for a Primary Quality Assurance
 #'           Organization. A AQS_Data_Mart_APIv2 object is a 2 item named list
-#'           in which the first item (\$Header) is a tibble of header
-#'           information from the AQS API and the second item (\$Data) is a
+#'           in which the first item ($Header) is a tibble of header
+#'           information from the AQS API and the second item ($Data) is a
 #'           tibble of the data returned.
 #' @examples # returns a tibble of PEP audit data for
-#'   #  June 2017 where the pqao is the Alabama Department of
-#'   #  Environmental Management (agency 0013)
+#'           #  June 2017 where the pqao is the Alabama Department of
+#'           #  Environmental Management (agency 0013)
 #'   \dontrun{aqs_qa_pep_audit_by_pqao(parameter = "88101",
 #'                                     bdate = as.Date("20170601",
 #'                                                     format = "%Y%m%d"
@@ -393,14 +393,14 @@ aqs_qa_pep_audit_by_pqao <- function(parameter, bdate, edate, pqao_code,
 }
 
 
-#' @title aqs_qa_annualpeferomanceeval_by_pqao
+#' @title aqs_qa_annualperformanceeval_by_pqao
 #' @description \lifecycle{stable}
 #'        Returns quality assurance performance evaluation data - aggregated by
 #'          Primary Quality Assurance Organization (PQAO) for a parameter
 #'          code aggregated by matching input parameter and pqao_code for the
 #'          time frame between bdate and edate.
-#' @note The AQS API only allows for a single year of
-#'         qaAnnualPerformanceEvaluations to be retrieved at a time. This
+#' @note The AQS API only allows for a single year of quality assurance
+#'         Annual Performance Evaluation data to be retrieved at a time. This
 #'         function conveniently extracts date information from the bdate
 #'         and edate parameters then makes repeated calls to the AQSAPI
 #'         retrieving a maximum of one calendar year of data at a time. Each
@@ -419,11 +419,10 @@ aqs_qa_pep_audit_by_pqao <- function(parameter, bdate, edate, pqao_code,
 #'                        from the API server mostly used for debugging
 #'                        purposes in addition to the data requested.
 #' @importFrom magrittr `%<>%`
-#' @examples #Returns an AQS_Data Mart_APIv2 S3 object or a tibble
-#'           #   containing annual performance evaluation data for ozone where
-#'           #   the PQAO is the Alabamaba Department of Environmental
-#'           #   Management (pqao_code 0013).
-#'  \dontrun{ aqs_qa_annualpeferomanceeval_by_pqao(parameter = "44201",
+#' @examples # Returns a tibble containing annual performance evaluation data
+#'           # for ozone where the PQAO is the Alabamaba Department of
+#'           # Environmental Management (pqao_code 0013).
+#'  \dontrun{ aqs_qa_annualperformanceeval_by_pqao(parameter = "44201",
 #'                                                 bdate = as.Date("20170101",
 #'                                                           format = "%Y%m%d"),
 #'                                                 edate = as.Date("20171231",
@@ -439,9 +438,9 @@ aqs_qa_pep_audit_by_pqao <- function(parameter, bdate, edate, pqao_code,
 #'           information from the AQS API and the second item ($Data) is a
 #'           tibble of the data returned.
 #' @export
-aqs_qa_annualpeferomanceeval_by_pqao <- function(parameter, bdate, edate,
-                                                  pqao_code,
-                                                  return_header = FALSE)
+aqs_qa_annualperformanceeval_by_pqao <- function(parameter, bdate, edate,
+                                                 pqao_code,
+                                                 return_header = FALSE)
 {
   checkaqsparams(parameter, bdate, edate, pqao_code, return_header)
 
@@ -465,10 +464,10 @@ aqs_qa_annualpeferomanceeval_by_pqao <- function(parameter, bdate, edate,
 #'             QA - aggregated by Primary Quality Assurance Organization (PQAO)
 #'             for a parameter code aggregated by matching input parameter and
 #'             pqao_code provided for bdate - edate time frame.
-#' @note The AQS API only allows for a single year of
-#'         qaAnnualPerformanceEvaluations to be retrieved at a time. This
-#'         function conveniently extracts date information from the bdate
-#'         and edate parameters then makes repeated calls to the AQSAPI
+#' @note The AQS API only allows for a single year of quality assurance
+#'         Annual Performance Evaluations transaction data to be retrieved at a
+#'         time. This function conveniently extracts date information from the
+#'         bdate and edate parameters then makes repeated calls to the AQSAPI
 #'         retrieving a maximum of one calendar year of data at a time. Each
 #'         calendar year of data requires a separate API call so multiple years
 #'         of data will require multiple API calls. As the number of years of
@@ -485,11 +484,11 @@ aqs_qa_annualpeferomanceeval_by_pqao <- function(parameter, bdate, edate,
 #'                        from the API server mostly used for debugging
 #'                        purposes in addition to the data requested.
 #' @importFrom magrittr `%<>%`
-#' @examples #Returns an AQS_Data Mart_APIv2 S3 object or a tibble
-#'           #   containing annual performance evaluation data for ozone in
-#'           #   where the PQAO is the Alabama Department of Environmental
-#'           #   Management (pqao_code 0013) for 2017 in RD format.
-#'  \dontrun{aqs_qa_annualperformanceevaltransaction_by_pqao(parameter = "44201",
+#' @examples #Returns a tibble containing annual performance evaluation data for
+#'           # ozone in where the PQAO is the Alabama Department of
+#'           # Environmental Management (pqao_code 0013) for 2017 in RD format.
+#'  \dontrun{aqs_qa_annualperformanceevaltransaction_by_pqao(parameter =
+#'                                                                      "44201",
 #'                                                 bdate = as.Date("20170101",
 #'                                                           format = "%Y%m%d"),
 #'                                                 edate = as.Date("20171231",

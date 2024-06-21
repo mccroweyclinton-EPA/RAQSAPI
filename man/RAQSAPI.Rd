@@ -2,9 +2,10 @@
 % Please edit documentation in R/RAQSAPI-package.R
 \docType{package}
 \name{RAQSAPI}
+\alias{RAQSAPI-package}
 \alias{RAQSAPI}
 \title{RAQSAPI: A R Interface to The United States Environmental Protection
-Agency's Air Quality System Data Mart RESTful API server.}
+Agency's Air Quality System Data Mart RESTful API server}
 \description{
 RAQSAPI is a package for R that connects the R programming
 environment to the United State's Environmental protection agency's
@@ -33,3 +34,30 @@ recommendation or favoring by the USEPA. The USEPA seal and logo shall not
 be used in any manner to imply endorsement of any commercial product or
 activity by the USEPA or the United States Government.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/USEPA/RAQSAPI/}
+  \item \url{https://aqs.epa.gov/aqsweb/documents/data_api.html}
+  \item Report bugs at \url{https://github.com/USEPA/RAQSAPI/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Clinton Mccrowey \email{mccrowey.clinton@epa.gov} (United States Environmental Protection Agency Region 3 Air and Radiation Division)
+
+Other contributors:
+\itemize{
+  \item Timothy Sharac (United States Environmental Protection Agency) [contributor, reviewer]
+  \item Nick Mangus (United States Environmental Protection Agency) [reviewer]
+  \item Doug Jager (United States Environmental Protection Agency) [contributor, reviewer]
+  \item Ryan Brown (United States Environmental Protection Agency) [contributor, reviewer]
+  \item Daniel Garver (United States Environmental Protection Agency) [contributor, reviewer]
+  \item Benjamin Wells (United States Environmental Protection Agency) [contributor, reviewer]
+  \item Hayley Brittingham (Neptune and Company) [corrector, contractor]
+  \item Jeffrey Hollister \email{hollister.jeff@epa.gov} (\href{https://orcid.org/0000-0002-9254-9740}{ORCID}) (United States Environmental Protection Agency) [reviewer]
+  \item Edward Andrews \email{edward.s.andrews@wv.gov} (West Virginia Department of Environmental Protection, Division of Air Quality) [reviewer, contributor]
+}
+
+}
+\keyword{internal}

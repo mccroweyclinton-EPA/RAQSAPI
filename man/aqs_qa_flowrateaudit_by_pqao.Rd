@@ -52,8 +52,8 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object containing flow rate
 audit data  for the requested pqao_code. An
 AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-first item (\$Header) is a tibble of header information from the
-AQS API and the second item (\$Data) is a tibble of the data
+first item ($Header) is a tibble of header information from the
+AQS API and the second item ($Data) is a tibble of the data
 returned.
 }
 \description{
@@ -77,8 +77,8 @@ API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
-# returns a tibble of flow rate audit data for January
-  #  2018 where the PQAO is the Jefferson County, AL Department Of
+# Returns a tibble of flow rate audit data for January
+  #  2018 where the PQAO is the Jefferson County, AL Department of
   #  Health (agency 0550).
   \dontrun{aqs_qa_flowrateaudit_by_pqao(parameter = "88101",
                                         bdate = as.Date("20170101",
@@ -91,7 +91,7 @@ API server. This operation has a linear run time of
 }
 \seealso{
 Other Aggregate _by_pqao functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_pqao}()},
+\code{\link{aqs_qa_annualperformanceeval_by_pqao}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_pqao}()},
 \code{\link{aqs_qa_blanks_by_pqao}()},
 \code{\link{aqs_qa_collocated_assessments_by_pqao}()},

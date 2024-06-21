@@ -1,18 +1,22 @@
 #' @importFrom magrittr `%>%`()
-test_that("by_site functions", {
-testthat::skip_if_offline()
-testthat::skip_on_cran()
-server <- "AQSDatamartAPI"
-datamartAPI_user <- "test@aqs.api"
+#' @import testthat
+test_that("bysite functions", {
+  testthat::skip_on_cran()
+  testthat::skip_if_offline()
 
+  if(file.exists("local.R"))
+  {
+    source("helper.R")
+    AQScredentials <- RAQSAPItestsetup_helper()
+    datamartAPI_user <- AQScredentials$datamartAPI_user
+    datamartAPI_key <- AQScredentials$datamartAPI_key
+  } else {
+    datamartAPI_user <- Sys.getenv("RAQSAPIUSERNAME", names = TRUE)
+    datamartAPI_key <- Sys.getenv("RAQSAPIKEY", names = TRUE)
+  }
   RAQSAPI::aqs_credentials(username = datamartAPI_user,
-                           key = "test"
-                           )
-
-  RAQSAPI::aqs_isavailable(return_header = TRUE)$Header$status %>%
-  expect_match(regexp = "API service is up and running healthy",
-               fixed = FALSE
-               )
+                           key = datamartAPI_key
+  )
 
   RAQSAPI::aqs_sampledata_by_site(parameter = "44201",
                                   bdate = as.Date("20170618",
@@ -58,7 +62,7 @@ datamartAPI_user <- "test@aqs.api"
 
   aqs_monitors_by_site(parameter = "42401",
                        bdate = as.Date("20150501", format = "%Y%m%d"),
-                       edate = as.Date("20150502", format = "%Y%m%d"),
+                       edate = as.Date("20190501", format = "%Y%m%d"),
                        stateFIPS = "15",
                        countycode = "001",
                        sitenum = "0007",
@@ -67,9 +71,9 @@ datamartAPI_user <- "test@aqs.api"
     expect_match(regexp = "Success")
 
   aqs_qa_collocated_assessments_by_site(parameter = "88101",
-                                        bdate = as.Date("20130101",
+                                        bdate = as.Date("20150101",
                                                         format = "%Y%m%d"),
-                                        edate = as.Date("20130131",
+                                        edate = as.Date("20150131",
                                                         format = "%Y%m%d"),
                                         stateFIPS = "01",
                                         countycode = "089",
@@ -116,7 +120,7 @@ aqs_qa_flowrateverification_by_site(parameter =  "88101",
 
 aqs_transactionsample_by_site(parameter = "44201",
                               bdate = as.Date("20170618", format = "%Y%m%d"),
-                              edate = as.Date("20170618",format = "%Y%m%d"),
+                              edate = as.Date("20170618", format = "%Y%m%d"),
                               stateFIPS = "37",
                               countycode = "183",
                               sitenum = "0014",
@@ -124,7 +128,7 @@ aqs_transactionsample_by_site(parameter = "44201",
                               )[[1]]$Header$status %>%
     expect_match(regexp = "Success")
 
-aqs_qa_annualpeferomanceeval_by_site(parameter = "44201",
+aqs_qa_annualperformanceeval_by_site(parameter = "44201",
                                      bdate = as.Date("20170101",
                                                      format = "%Y%m%d"),
                                      edate = as.Date("20171231",

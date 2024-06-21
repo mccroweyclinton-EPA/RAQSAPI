@@ -76,23 +76,21 @@ overloading the API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
-#Returns a AQS_Data Mart_APIv2 S3 object of
-         \dontrun{ #   all ozone transaction sample data for all monitors
-                   #   operated by South Coast Air Quality Management
-                   #   District collected on May 15, 2015
-                   #   North Carolina on May 15, 1995
-                   aqs_transactionsample_by_MA(parameter = "44201",
-                                                 bdate = as.Date("20150515",
-                                                         format = "\%Y\%m\%d"),
-                                                 edate = as.Date("20150515",
+#Returns a tibble of ozone transaction sample data for all monitors
+          #operated by South Coast Air Quality Management District collected
+          #on May 15, 2015
+          \dontrun{aqs_transactionsample_by_MA(parameter = "44201",
+                                               bdate = as.Date("20150515",
                                                           format = "\%Y\%m\%d"),
-                                                 MA_code = "0972"
-                                                 )
+                                               edate = as.Date("20150515",
+                                                          format = "\%Y\%m\%d"),
+                                               MA_code = "0972"
+                                               )
                  }
 }
 \seealso{
 Other Aggregate _by_state functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_state}()},
+\code{\link{aqs_qa_annualperformanceeval_by_state}()},
 \code{\link{aqs_qa_annualperformanceevaltransaction_by_state}()},
 \code{\link{aqs_quarterlysummary_by_box}()},
 \code{\link{aqs_quarterlysummary_by_cbsa}()},

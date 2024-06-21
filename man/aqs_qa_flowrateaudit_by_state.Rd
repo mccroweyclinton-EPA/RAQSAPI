@@ -54,8 +54,8 @@ addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object containing flow rate
 audit data for the requested stateFIPS. An
 AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-first item (\$Header) is a tibble of header information from the
-AQS API and the second item (\$Data) is a tibble of the data
+first item ($Header) is a tibble of header information from the
+AQS API and the second item ($Data) is a tibble of the data
 returned.
 }
 \description{
@@ -81,12 +81,10 @@ API server. This operation has a linear run time of
 # returns a tibble of flow rate audit
           #  data for Alabama in January 2018
           \dontrun{aqs_qa_flowrateaudit_by_state(parameter = "88101",
-                                                 b date = as.Date("20170101",
-                                                            format = "\%Y\%m\%d"
-                                                                ),
-                                                  edate = as.Date("20180131",
-                                                            format = "\%Y\%m\%d"
-                                                                ),
+                                                 bdate = as.Date("20170101",
+                                                          format = "\%Y\%m\%d"),
+                                                 edate = as.Date("20180131",
+                                                          format = "\%Y\%m\%d"),
                                                  stateFIPS = "01"
                                                  )
                    }

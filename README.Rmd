@@ -36,11 +36,11 @@ knitr::opts_chunk$set(
   [![metacran downloads](https://cranlogs.r-pkg.org/badges/RAQSAPI)](
                          https://cran.r-project.org/package=RAQSAPI)
   [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](
-  https://www.tidyverse.org/lifecycle/#maturing)
+  https://lifecycle.r-lib.org/articles/stages.html)
   [![license](https://img.shields.io/badge/license-CC0-lightgrey.svg)](
   https://choosealicense.com/)
-  [![Last-changedate](https://img.shields.io/badge/last%20change-\
-  `r gsub('-', '--', Sys.Date())`-blue.svg)](/commits/master)
+  "[![Last-changedate](https://img.shields.io/badge/last%20change-
+  `r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](/commits/master)"
   <!-- badges: end -->
 
 ```{r child = "./vignettes/EPA_Disclaimer.Rmd", echo = FALSE, comment = NA}
@@ -59,6 +59,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r child = "./vignettes/RAQSAPIFunctions-Brief.Rmd"}
+```
+
+```{r child = "./vignettes/pyaqsapi.Rmd"}
 ```
 
 ```{r child = "./vignettes/Acknowledgements.Rmd"}

@@ -70,9 +70,9 @@ purposes in addition to the data requested.}
 \value{
 a tibble or an AQS_Data Mart_APIv2 S3 object that containing annual
 summary data for the box (area) requested. A AQS_Data Mart_APIv2
-is a 2 item named list in which the first item (\$Header) is a
+is a 2 item named list in which the first item ($Header) is a
 tibble of header information from the AQS API and the second item
-(\$Data) is a tibble of the data returned.
+($Data) is a tibble of the data returned.
 }
 \description{
 \lifecycle{stable}
@@ -98,9 +98,9 @@ API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
 }
 \examples{
-# returns a tibble containing ozone annual summaries
+# Returns a tibble containing ozone annual summaries
           #  in the vicinity of central Alabama for the first two days
-          #  in May, 2015
+          # of May, 2015
           \dontrun{aqs_annualsummary_by_box(parameter = "44201",
                                             bdate = as.Date("20150501",
                                                           format = "\%Y\%m\%d"),

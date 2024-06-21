@@ -1,15 +1,23 @@
 #' @importFrom magrittr `%>%`()
-test_that("by_state functions", {
-testthat::skip_if_offline()
-testthat::skip_on_cran()
-server <- "AQSDatamartAPI"
-datamartAPI_user <- "test@aqs.api"
+#' @import testthat
 
-datamartAPI_user <- "test@aqs.api"
+test_that("bystate functions", {
+  testthat::skip_on_cran()
+  testthat::skip_if_offline()
 
+  if(file.exists("local.R"))
+  {
+    source("helper.R")
+    AQScredentials <- RAQSAPItestsetup_helper()
+    datamartAPI_user <- AQScredentials$datamartAPI_user
+    datamartAPI_key <- AQScredentials$datamartAPI_key
+  } else {
+    datamartAPI_user <- Sys.getenv("RAQSAPIUSERNAME", names = TRUE)
+    datamartAPI_key <- Sys.getenv("RAQSAPIKEY", names = TRUE)
+  }
   RAQSAPI::aqs_credentials(username = datamartAPI_user,
-                           key = "test"
-                           )
+                           key = datamartAPI_key
+  )
 
 aqs_monitors_by_state(parameter = "88101",
                       bdate = as.Date("20170101", format = "%Y%m%d"),
@@ -30,7 +38,7 @@ aqs_sampledata_by_state(parameter = "45201",
 aqs_annualsummary_by_state(parameter = "45201",
                                   bdate = as.Date("19950515",
                                                  format = "%Y%m%d"),
-                                  edate = as.Date("19950515",
+                                  edate = as.Date("19990515",
                                                  format = "%Y%m%d"),
                                   stateFIPS = "37",
                                   return_header = TRUE
@@ -74,9 +82,9 @@ aqs_qa_flowrateaudit_by_state(parameter = "88101",
     expect_match(regexp = "Success")
 
 aqs_qa_flowrateverification_by_state(parameter = "88101",
-                                  bdate = as.Date("20180101",
+                                  bdate = as.Date("20170101",
                                                   format = "%Y%m%d"),
-                                  edate = as.Date("20180131",
+                                  edate = as.Date("20190131",
                                                   format = "%Y%m%d"),
                                   stateFIPS = "01",
                                   return_header = TRUE
@@ -117,7 +125,7 @@ aqs_transactionsample_by_state(parameter = "45201",
                                )[[1]]$Header$status %>%
     expect_match(regexp = "Success")
 
- aqs_qa_annualpeferomanceeval_by_state(parameter = "44201",
+ aqs_qa_annualperformanceeval_by_state(parameter = "44201",
                                        bdate = as.Date("20170101",
                                                        format = "%Y%m%d"),
                                        edate = as.Date("20171231",
@@ -140,7 +148,7 @@ aqs_transactionsample_by_state(parameter = "45201",
  aqs_quarterlysummary_by_state(parameter = "88101",
                                         bdate = as.Date("20160101",
                                                         format = "%Y%m%d"),
-                                        edate = as.Date("20170228",
+                                        edate = as.Date("20171231",
                                                         format = "%Y%m%d"),
                                         stateFIPS = "37",
                                         return_header = TRUE

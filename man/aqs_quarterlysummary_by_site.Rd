@@ -65,8 +65,8 @@ purposes in addition to the data requested.}
 a tibble or an AQS_Data Mart_APIv2 S3 object that contains quarterly
 summary statistics for the given parameter for a single countycode
 and stateFIPS combination. An AQS_Data Mart_APIv2 is a 2 item named
-list in which the first item (\$Header) is a tibble of header
-information from the AQS API and the second item (\$Data) is a
+list in which the first item ($Header) is a tibble of header
+information from the AQS API and the second item ($Data) is a
 tibble of the data returned.
 }
 \description{
@@ -87,11 +87,15 @@ that it will take to retrieve results. There is also a 5 second wait
 time inserted between successive API calls to prevent overloading the
 API server. This operation has a linear run time of
 /(Big O notation: O/(n + 5 seconds/)/).
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{    Also Note that for quarterly data, only the year portion of the bdate
+    and edate are used and all 4 quarters in the year are returned.
+}\if{html}{\out{</div>}}
 }
 \examples{
-# returns an aqs S3 object containing quarterly summaries for
+# returns a tibble containing quarterly summaries for
           #  FRM/FEM PM2.5 data for Millbrook School in Wake County, NC
-          #  between January and February 2016
+          #  for each quarter of 2016
  \dontrun{aqs_quarterlysummary_by_site(parameter = "88101",
                                        bdate = as.Date("20160101",
                                                        format = "\%Y\%m\%d"),

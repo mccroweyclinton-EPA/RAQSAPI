@@ -2,7 +2,7 @@
 % Please edit documentation in R/byma.R
 \name{aqs_qa_annualperformanceevaltransaction_by_MA}
 \alias{aqs_qa_annualperformanceevaltransaction_by_MA}
-\title{aqs_qa_annualperformanceevaltransaction_by_site}
+\title{aqs_qa_annualperformanceevaltransaction_by_MA}
 \usage{
 aqs_qa_annualperformanceevaltransaction_by_MA(
   parameter,
@@ -17,24 +17,24 @@ aqs_qa_annualperformanceevaltransaction_by_MA(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
-selection. Only data on or before this date will be
-returned.}
+\item{edate}{a R date object which represents the end date of the data
+selection. Only data on or before this date will be returned.}
 
 \item{MA_code}{a R character object which represents the 4 digit AQS
-Monitoring Agency code (with leading zeroes).}
+Monitoring Agency code (with leading zeroes). Use
+\code{\link[=aqs_mas]{aqs_mas()}} for a list of all
+Monitoring Agency (MA) codes and names available,}
 
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two
-item list that contains header information returned
-from the API server mostly used for debugging
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object of quality assurance
+a tibble or an AQS_DataMart_APIv2 S3 object of quality assurance
 performance evaluation data in the AQS submissions transaction
 format (RD)for all sites matching the MA_code requested for the
 time frame between bdate and edate. An AQS_Data_Mart_APIv2 is a 2
@@ -43,7 +43,7 @@ header information from the AQS API and the second item ($Data) is
 a tibble of the data returned.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns AQS submissions transaction format (RD) of the annual
 performance evaluation data (raw). Includes data pairs for
 QA - aggregated by Monitoring agency (MA)
@@ -51,10 +51,10 @@ for a parameter code aggregated by matching input parameter and
 MA_code provided for bdate - edate time frame.
 }
 \note{
-The AQS API only allows for a single year of quality assurance Annual
-Performance Evaluation transaction data to be retrieved at a time.
-This function conveniently extracts date information from the bdate
-and edate parameters then makes repeated calls to the AQSAPI
+The AQS API only allows for a single year of quality assurance
+Annual Performance Evaluations transaction data to be retrieved at a
+time. This function conveniently extracts date information from the
+bdate and edate parameters then makes repeated calls to the AQSAPI
 retrieving a maximum of one calendar year of data at a time. Each
 calendar year of data requires a separate API call so multiple years
 of data will require multiple API calls. As the number of years of
@@ -62,30 +62,29 @@ data being requested increases so does the length of time that it
 will take to retrieve results. There is also a 5 second wait time
 inserted between successive API calls to prevent overloading the API
 server. This operation has a linear run time of
-/(Big O notation: O/(n + 5 seconds/)/).
+$mathcal(n + 5 seconds)$.
 }
 \examples{
-#Returns an AQS_Data Mart_APIv2 S3 object or a tibble
-          #   containing annual performance evaluation data for ozone in
-          #   where the MA is the Alabama Department of Environmental
-          #   Management (MA_code 0013) for 2017 in RD format.
- \dontrun{aqs_qa_annualperformanceevaltransaction_by_MA(parameter = "44201",
-                                              bdate = as.Date("20170101",
-                                                          format = "\%Y\%m\%d"),
-                                              edate = as.Date("20171231",
-                                                          format = "\%Y\%m\%d"),
-                                              MA_code = "0013"
-                                             )
+# Returns a tibble containing annual performance evaluation data
+          #  for ozone in where the MA is the Alabama Department of
+          #  Environmental Management (MA_code 0013) for 2017 in RD format.
+ \dontrun{aqs_qa_annualperformanceevaltransaction_by_MA(parameter = '44201',
+                                                  bdate = as.Date('20170101',
+                                                          format = '\%Y\%m\%d'),
+                                                  edate = as.Date('20171231',
+                                                          format = '\%Y\%m\%d'),
+                                                  MA_code = '0013'
+                                                        )
          }
 }
 \seealso{
-Other Aggregate _by_MA functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_MA}()},
-\code{\link{aqs_qa_blanks_by_MA}()},
-\code{\link{aqs_qa_collocated_assessments_by_MA}()},
-\code{\link{aqs_qa_flowrateaudit_by_MA}()},
-\code{\link{aqs_qa_flowrateverification_by_MA}()},
-\code{\link{aqs_qa_one_point_qc_by_MA}()},
-\code{\link{aqs_qa_pep_audit_by_MA}()}
+Other Aggregate _by_MA functions:
+\code{\link[=aqs_qa_annualperformanceeval_by_MA]{aqs_qa_annualperformanceeval_by_MA()}},
+\code{\link[=aqs_qa_blanks_by_MA]{aqs_qa_blanks_by_MA()}},
+\code{\link[=aqs_qa_collocated_assessments_by_MA]{aqs_qa_collocated_assessments_by_MA()}},
+\code{\link[=aqs_qa_flowrateaudit_by_MA]{aqs_qa_flowrateaudit_by_MA()}},
+\code{\link[=aqs_qa_flowrateverification_by_MA]{aqs_qa_flowrateverification_by_MA()}},
+\code{\link[=aqs_qa_one_point_qc_by_MA]{aqs_qa_one_point_qc_by_MA()}},
+\code{\link[=aqs_qa_pep_audit_by_MA]{aqs_qa_pep_audit_by_MA()}}
 }
 \concept{Aggregate _by_MA functions}

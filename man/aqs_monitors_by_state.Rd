@@ -9,8 +9,6 @@ aqs_monitors_by_state(
   bdate,
   edate,
   stateFIPS,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
   return_header = FALSE
 )
 }
@@ -19,73 +17,57 @@ aqs_monitors_by_state(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
+\item{edate}{a R date object which represents the end date of the data
 selection. Only data on or before this date will be returned.}
 
 \item{stateFIPS}{a R character object which represents the 2 digit state
 FIPS code (with leading zero) for the state being
-requested. @seealso \code{\link[=aqs_states]{aqs_states()}} for the list of
+requested. Use \code{\link[=aqs_states]{aqs_states()}} for the list of
 available FIPS codes.}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
-updated. cbdate is used to filter data based on the change
-date. Only data that changed on or after this date will be
-returned. This is an optional variable which defaults
-to NA_Date_.}
-
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
-updated. cedate is used to filter data based on the change
-date. Only data that changed on or before this date will be
-returned. This is an optional variable which defaults
-to NA_Date_.}
-
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two item
-list that contains header information returned from
-the API server mostly used for debugging purposes in
-addition to the data requested.}
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
+purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object of monitors from the
+a tibble or an AQS_DataMart_APIv2 S3 object of monitors from the
 selected state
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns a table of monitors and related metadata at sites with the
 provided parameter, and stateFIPS for bdate - edate time frame.
 }
-\section{by_state aggregate functions}{
-NA
+\note{
+All monitors that operated between the bdate and edate will be returned
 }
-
 \examples{
 # returns a tibble of SO2 monitors in Hawaii
-          #  that were operating on May 01, 2015
- \dontrun{aqs_monitors_by_state(parameter="88101",
-                                  bdate=as.Date("20170101",
-                                                 format="\%Y\%m\%d"),
-                                  edate=as.Date("20171231",
-                                                 format="\%Y\%m\%d"),
-                                  stateFIPS="01"
+          #  that were operating on May 01, 2017
+ \dontrun{aqs_monitors_by_state(parameter='88101',
+                                  bdate=as.Date('20170101',
+                                                 format='\%Y\%m\%d'),
+                                  edate=as.Date('20171231',
+                                                 format='\%Y\%m\%d'),
+                                  stateFIPS='01'
                                   )
           }
 
 }
 \seealso{
-Other Aggregate_by_state functions: 
-\code{\link{aqs_annualsummary_by_state}()},
-\code{\link{aqs_dailysummary_by_state}()},
-\code{\link{aqs_qa_blanks_by_state}()},
-\code{\link{aqs_qa_collocated_assessments_by_state}()},
-\code{\link{aqs_qa_flowrateaudit_by_state}()},
-\code{\link{aqs_qa_flowrateverification_by_state}()},
-\code{\link{aqs_qa_one_point_qc_by_state}()},
-\code{\link{aqs_qa_pep_audit_by_state}()},
-\code{\link{aqs_sampledata_by_state}()}
+Other Aggregate_by_state functions:
+\code{\link[=aqs_annualsummary_by_state]{aqs_annualsummary_by_state()}},
+\code{\link[=aqs_dailysummary_by_state]{aqs_dailysummary_by_state()}},
+\code{\link[=aqs_qa_blanks_by_state]{aqs_qa_blanks_by_state()}},
+\code{\link[=aqs_qa_collocated_assessments_by_state]{aqs_qa_collocated_assessments_by_state()}},
+\code{\link[=aqs_qa_flowrateaudit_by_state]{aqs_qa_flowrateaudit_by_state()}},
+\code{\link[=aqs_qa_flowrateverification_by_state]{aqs_qa_flowrateverification_by_state()}},
+\code{\link[=aqs_qa_one_point_qc_by_state]{aqs_qa_one_point_qc_by_state()}},
+\code{\link[=aqs_qa_pep_audit_by_state]{aqs_qa_pep_audit_by_state()}},
+\code{\link[=aqs_sampledata_by_state]{aqs_sampledata_by_state()}}
 }
 \concept{Aggregate_by_state functions}

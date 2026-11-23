@@ -9,15 +9,15 @@ aqs_knownissues(return_header = FALSE)
 \arguments{
 \item{return_header}{If FALSE (default) only returns data requested. If TRUE
 returns a AQSAPI_v2 object which is a two item list that contains header
-information returned from the API server mostly used for debugging
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object that contains
+a tibble or an AQS_DataMart_APIv2 S3 object that contains
 information involving known issues with the Data Mart API.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns a table of any known issues with system functionality
 or the data. These are usually issues that have been
 identified internally and will require some time to correct
@@ -27,6 +27,6 @@ Issues returned via this function do not include any issues
 from the RAQSAPI R package.
 }
 \examples{
-      #retrieve the list of known issues directly from the AQS data mart API
+      # Retrieve a tibble of known issues directly from the AQS data mart API
        \dontrun{aqs_knownissues()}
 }

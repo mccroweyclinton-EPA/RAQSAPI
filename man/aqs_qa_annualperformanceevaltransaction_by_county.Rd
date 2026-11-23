@@ -18,31 +18,29 @@ aqs_qa_annualperformanceevaltransaction_by_county(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
-selection. Only data on or before this date will be
-returned.}
+\item{edate}{a R date object which represents the end date of the data
+selection. Only data on or before this date will be returned.}
 
 \item{stateFIPS}{a R character object which represents the 2 digit state
 FIPS code (with leading zero) for the state being
-requested. @seealso \code{\link[=aqs_states]{aqs_states()}} for the list of
+requested. Use \code{\link[=aqs_states]{aqs_states()}} for the list of
 available FIPS codes.}
 
 \item{countycode}{a R character object which represents the 3 digit state
 FIPS code for the county being requested (with leading
-zero(s)). @seealso \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}} for the
-list of available county codes for each state.}
+zero(s)). Use \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}}
+for the list of available county codes in each state.}
 
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two
-item list that contains header information returned
-from the API server mostly used for debugging
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object of quality assurance
+a tibble or an AQS_DataMart_APIv2 S3 object of quality assurance
 performance evaluation data in the RD format for a single
 monitoring site for the countycode and stateFIPS requested
 for the time frame between bdate and edate in the AQS. An
@@ -51,7 +49,7 @@ AQS_Data_Mart_APIv2 is a 2 item named list in which the first item
 the second item ($Data) is a tibble of the data returned.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns AQS submissions transaction format (RD) of the annual
 performance evaluation data (raw). Includes data pairs for
 QA - aggregated by site for a parameter code aggregated by matching
@@ -60,9 +58,9 @@ bdate - edate time frame.
 }
 \note{
 The AQS API only allows for a single year of quality assurance
-Annual Performance Evaluations data to be retrieved at a time. This
-function conveniently extracts date information from the bdate
-and edate parameters then makes repeated calls to the AQSAPI
+Annual Performance Evaluations transaction data to be retrieved at a
+time. This function conveniently extracts date information from the
+bdate and edate parameters then makes repeated calls to the AQSAPI
 retrieving a maximum of one calendar year of data at a time. Each
 calendar year of data requires a separate API call so multiple years
 of data will require multiple API calls. As the number of years of
@@ -70,37 +68,36 @@ data being requested increases so does the length of time that it
 will take to retrieve results. There is also a 5 second wait time
 inserted between successive API calls to prevent overloading the API
 server. This operation has a linear run time of
-/(Big O notation: O/(n + 5 seconds/)/).
+$mathcal(n + 5 seconds)$.
 }
 \examples{
-#Returns an AQS_Data Mart_APIv2 S3 object or a tibble
-          #   containing annual performance evaluation data (raw) for ozone
-          #   in Baldwin County, AL for 2017 in RD format.
- \dontrun{aqs_qa_annualperformanceevaltransaction_by_county(parameter = "44201",
-                                                  bdate = as.Date("20170101",
-                                                          format = "\%Y\%m\%d"),
-                                                  edate = as.Date("20171231",
-                                                          format = "\%Y\%m\%d"),
-                                                  stateFIPS = "01",
-                                                  countycode = "003"
+# Returns a tibble containing annual performance evaluation data
+          # (raw) for ozone in Baldwin County, AL for 2017 in RD format.
+ \dontrun{aqs_qa_annualperformanceevaltransaction_by_county(parameter =
+                                                                     '44201',
+                                                  bdate = as.Date('20170101',
+                                                          format = '\%Y\%m\%d'),
+                                                  edate = as.Date('20171231',
+                                                          format = '\%Y\%m\%d'),
+                                                  stateFIPS = '01',
+                                                  countycode = '003'
                                                   )
                  }
 }
 \seealso{
-Other Aggregate _by_site functions: 
-\code{\link{aqs_annualsummary_by_site}()},
-\code{\link{aqs_dailysummary_by_site}()},
-\code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
-\code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
-\code{\link{aqs_qa_blanks_by_site}()},
-\code{\link{aqs_qa_collocated_assessments_by_site}()},
-\code{\link{aqs_qa_flowrateaudit_by_site}()},
-\code{\link{aqs_qa_flowrateverification_by_site}()},
-\code{\link{aqs_qa_one_point_qc_by_site}()},
-\code{\link{aqs_qa_pep_audit_by_site}()},
-\code{\link{aqs_sampledata_by_site}()},
-\code{\link{aqs_services_by_site}()},
-\code{\link{aqs_transactionsample_by_site}()}
+Other Aggregate _by_site functions:
+\code{\link[=aqs_annualsummary_by_site]{aqs_annualsummary_by_site()}},
+\code{\link[=aqs_dailysummary_by_site]{aqs_dailysummary_by_site()}},
+\code{\link[=aqs_monitors_by_site]{aqs_monitors_by_site()}},
+\code{\link[=aqs_qa_annualperformanceeval_by_site]{aqs_qa_annualperformanceeval_by_site()}},
+\code{\link[=aqs_qa_annualperformanceevaltransaction_by_site]{aqs_qa_annualperformanceevaltransaction_by_site()}},
+\code{\link[=aqs_qa_blanks_by_site]{aqs_qa_blanks_by_site()}},
+\code{\link[=aqs_qa_collocated_assessments_by_site]{aqs_qa_collocated_assessments_by_site()}},
+\code{\link[=aqs_qa_flowrateaudit_by_site]{aqs_qa_flowrateaudit_by_site()}},
+\code{\link[=aqs_qa_flowrateverification_by_site]{aqs_qa_flowrateverification_by_site()}},
+\code{\link[=aqs_qa_one_point_qc_by_site]{aqs_qa_one_point_qc_by_site()}},
+\code{\link[=aqs_qa_pep_audit_by_site]{aqs_qa_pep_audit_by_site()}},
+\code{\link[=aqs_sampledata_by_site]{aqs_sampledata_by_site()}},
+\code{\link[=aqs_transactionsample_by_site]{aqs_transactionsample_by_site()}}
 }
 \concept{Aggregate _by_site functions}

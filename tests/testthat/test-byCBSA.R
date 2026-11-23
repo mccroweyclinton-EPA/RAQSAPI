@@ -1,65 +1,81 @@
-#' @importFrom magrittr `%>%`()
-test_that("by_cbsa functions", {
-testthat::skip_if_offline()
-testthat::skip_on_cran()
-server <- "AQSDatamartAPI"
-datamartAPI_user <- "test@aqs.api"
+#' @importFrom magrittr `%>%`() `%T>%`()
+if (file.exists("local.R")) {
+  AQScredentials <- RAQSAPItestsetup_helper()
+  datamartAPI_user <- AQScredentials$datamartAPI_user
+  datamartAPI_key <- AQScredentials$datamartAPI_key
+} else {
+  datamartAPI_user <- Sys.getenv("RAQSAPIUSERNAME", names = TRUE)
+  datamartAPI_key <- Sys.getenv("RAQSAPIKEY", names = TRUE)
+}
 
-  RAQSAPI::aqs_credentials(username = datamartAPI_user,
-                           key = "test"
-                           )
+RAQSAPI::aqs_credentials(username = datamartAPI_user, key = datamartAPI_key)
 
-  aqs_cbsas(return_header = TRUE)$Header$status %>%
-    expect_match(regexp = "Success")
+with_mock_dir("bycbsa", {
+  test_that("byCBSA functions", {
+    if (
+      RAQSAPI:::invalid(datamartAPI_user) ||
+        RAQSAPI:::invalid(datamartAPI_key) ||
+        datamartAPI_key == "redacted" ||
+        datamartAPI_user == "redacted"
+    ) {
+      stop("credentials not loaded in unit tests")
+    }
+    if (!exists(x = "RAQSAPItestsetup_helper", mode = "function")) {
+      rlang::abort(message = "RAQSAPItestsetup_helper function not loaded during unit test")
+    }
 
-  aqs_monitors_by_cbsa(parameter = "42602",
-                       bdate = as.Date("20170101", format = "%Y%m%d"),
-                       edate = as.Date("20170102", format = "%Y%m%d"),
-                       cbsa_code = "16740",
-                       return_header = TRUE
-                       )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_monitors_by_cbsa(
+      parameter = "42602",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20170102", format = "%Y%m%d"),
+      cbsa_code = "16740",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-  aqs_annualsummary_by_cbsa(parameter = "42602",
-                            bdate = as.Date("20170101", format = "%Y%m%d"),
-                            edate = as.Date("20170101", format = "%Y%m%d"),
-                            cbsa_code = "16740",
-                            return_header = TRUE
-                            )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_annualsummary_by_cbsa(
+      parameter = "42602",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20170101", format = "%Y%m%d"),
+      cbsa_code = "16740",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-  aqs_dailysummary_by_cbsa(parameter = "42602",
-                           bdate = as.Date("20170101", format = "%Y%m%d"),
-                           edate = as.Date("20170101", format = "%Y%m%d"),
-                           cbsa_code = "16740",
-                           return_header = TRUE
-                           )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_dailysummary_by_cbsa(
+      parameter = "42602",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20170101", format = "%Y%m%d"),
+      cbsa_code = "16740",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-  aqs_sampledata_by_cbsa(parameter = "42602",
-                         bdate = as.Date("20170101", format = "%Y%m%d"),
-                         edate = as.Date("20170101", format = "%Y%m%d"),
-                         cbsa_code = "16740",
-                         return_header = TRUE
-                         )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_sampledata_by_cbsa(
+      parameter = "42602",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20170101", format = "%Y%m%d"),
+      cbsa_code = "16740",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-  aqs_dailysummary_by_cbsa(parameter = "42602",
-                           bdate = as.Date("20170101", format = "%Y%m%d"),
-                           edate = as.Date("20170101", format = "%Y%m%d"),
-                           cbsa_code = "16740",
-                           return_header = TRUE
-                           )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_quarterlysummary_by_cbsa(
+      parameter = "42602",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20171231", format = "%Y%m%d"),
+      cbsa_code = "16740",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-  aqs_quarterlysummary_by_cbsa(parameter = "42602",
-                               bdate = as.Date("20170101", format = "%Y%m%d"),
-                               edate = as.Date("20190101", format = "%Y%m%d"),
-                               cbsa_code = "16740",
-                               return_header = TRUE
-                               )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
-
-aqs_sampledurations(return_header = TRUE)$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_sampledurations(return_header = TRUE) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
+  })
 })

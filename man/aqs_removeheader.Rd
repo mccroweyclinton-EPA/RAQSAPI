@@ -4,17 +4,19 @@
 \alias{aqs_removeheader}
 \title{aqs_removeheader}
 \usage{
-aqs_removeheader(AQSobject)
+aqs_removeheader(.AQSobject)
 }
 \arguments{
-\item{AQSobject}{An object of AQSAPI_v2 or a list of AQSAPI_v2 objects.}
+\item{.AQSobject}{A 2 item named list in which the first item ($Header) is a
+tibble of header information from the AQS API and the second
+item ($Data) is a tibble of the data returned.}
 }
 \value{
 a tibble of the combined $data portions of the input
 AQS_Data_Mart_APIv2 S3 object with the $Header portion discarded.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Coerces a single AQS_Data_Mart_APIv2 S3 object or
 a list of AQS_Data_Mart_APIv2 S3 objects into a single tibble
 object. This function decouples the $Data from the AQSAPI_v2
@@ -30,5 +32,6 @@ objects this means that the $Header information will not be present in the
 object being returned.
 }
 \examples{
-          \dontrun{ AQSobject <- aqs_removeheader(AQSobject)}
+#coerce a AQS_Data_MART_APIv2 object to a single tibble.
+           \dontrun{ aqs_removeheader(AQSobject) }
 }

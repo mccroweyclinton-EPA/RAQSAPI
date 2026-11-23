@@ -25,11 +25,11 @@ export(aqs_monitors_by_site)
 export(aqs_monitors_by_state)
 export(aqs_parameters_by_class)
 export(aqs_pqaos)
-export(aqs_qa_annualpeferomanceeval_by_MA)
-export(aqs_qa_annualpeferomanceeval_by_pqao)
-export(aqs_qa_annualpeferomanceeval_by_site)
-export(aqs_qa_annualpeferomanceeval_by_state)
+export(aqs_qa_annualperformanceeval_by_MA)
 export(aqs_qa_annualperformanceeval_by_county)
+export(aqs_qa_annualperformanceeval_by_pqao)
+export(aqs_qa_annualperformanceeval_by_site)
+export(aqs_qa_annualperformanceeval_by_state)
 export(aqs_qa_annualperformanceevaltransaction_by_MA)
 export(aqs_qa_annualperformanceevaltransaction_by_county)
 export(aqs_qa_annualperformanceevaltransaction_by_pqao)
@@ -85,50 +85,79 @@ export(aqs_transactionsample_by_MA)
 export(aqs_transactionsample_by_county)
 export(aqs_transactionsample_by_site)
 export(aqs_transactionsample_by_state)
-importFrom(dplyr,arrange)
-importFrom(dplyr,between)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,mutate)
-importFrom(dplyr,rename)
-importFrom(dplyr,rename_at)
-importFrom(dplyr,select)
-importFrom(dplyr,select_if)
-importFrom(dplyr,vars)
+exportPattern("^\\.onLoad$")
+importFrom(dplyr,
+  arrange,
+  between,
+  bind_rows,
+  mutate,
+  rename,
+  rename_at,
+  select,
+  vars
+)
 importFrom(glue,glue)
-importFrom(httr,GET)
-importFrom(httr,content)
-importFrom(httr,http_error)
-importFrom(httr,http_type)
-importFrom(httr,message_for_status)
-importFrom(httr,modify_url)
-importFrom(httr,status_code)
-importFrom(httr,user_agent)
-importFrom(lifecycle,badge)
-importFrom(lifecycle,deprecate_soft)
-importFrom(lubridate,'%within%')
-importFrom(lubridate,NA_Date_)
-importFrom(lubridate,day)
-importFrom(lubridate,is.Date)
-importFrom(lubridate,mdy)
-importFrom(lubridate,month)
-importFrom(lubridate,today)
-importFrom(lubridate,year)
-importFrom(lubridate,years)
-importFrom(lubridate,ymd)
-importFrom(lubridate,ymd_hm)
-importFrom(magrittr,`%<>%`)
-importFrom(magrittr,`%>%`)
-importFrom(purrr,pmap)
-importFrom(rlang,.data)
-importFrom(rlang,`!!`)
-importFrom(rlang,`:=`)
-importFrom(rlang,abort)
-importFrom(rlang,call_name)
-importFrom(rlang,format_error_bullets)
-importFrom(rlang,is_character)
-importFrom(rlang,is_empty)
-importFrom(stringr,str_c)
-importFrom(stringr,str_detect)
-importFrom(tibble,as_tibble)
-importFrom(tibble,tibble)
+importFrom(httr2,
+  last_response,
+  req_error,
+  req_options,
+  req_perform,
+  req_retry,
+  req_throttle,
+  req_url_path_append,
+  req_user_agent,
+  req_verbose,
+  request,
+  resp_body_json
+)
+importFrom(lifecycle,
+  badge,
+  deprecate_soft,
+  deprecated
+)
+importFrom(lubridate,
+  "%within%",
+  NA_Date_,
+  day,
+  is.Date,
+  mdy,
+  month,
+  today,
+  year,
+  years,
+  ymd,
+  ymd_hm
+)
+importFrom(magrittr,
+  "%<>%",
+  "%>%"
+)
+importFrom(methods,setOldClass)
+importFrom(purrr,
+  map_chr,
+  map_lgl,
+  pmap
+)
+importFrom(rlang,
+  "!!",
+  ":=",
+  abort,
+  call_name,
+  caller_call,
+  format_error_bullets,
+  inherits_any,
+  is_character,
+  is_empty,
+  is_list
+)
+importFrom(stringr,
+  str_c,
+  str_detect,
+  str_replace_all
+)
+importFrom(tibble,
+  is_tibble,
+  tibble
+)
+importFrom(tidyselect,where)
 importFrom(utils,tail)

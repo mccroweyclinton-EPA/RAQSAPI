@@ -1,9 +1,8 @@
 #Took samples from "A collection of useful .gitignore templates"
 #https://github.com/github/gitignore/blob/master/R.gitignore
-
 # R environment
 .Rcheck$ # Output files from R CMD check
-.Rproj.user
+.Rproj.user*
 .Renviron
 .Rproj.user
 .Rhistory
@@ -12,20 +11,17 @@
 .Ruserdata
 doc
 Meta
-
 # knitr and R markdown default cache directories
 *_cache/
-/cache/
-
+^cache/*
 # Temporary files created by knitr and R markdown
 *.utf8.md
 *.knit.md
 $.Rd2pdf*
-
 #compiled Document files
 *.out
 *.aux
-*.html
+#*.html
 *.pdf
 *.log
 *.docx
@@ -33,13 +29,28 @@ vignettes/*.html
 vignettes/*.pdf
 vignettes/*.md
 vignettes/*.docx
-
 #other files
 #not needed
-./dev/countlinesofcode.R
-#this file is not needed on github use the remotes package instead
-./dev/install_RAQSAPI.R
-# this project is not taking contributions at this time, any issues with this
-#package, or feature request should be submitted to the issue tracker.
-./dev/contributing.md
-./dev/contributing.Rmd
+<<<<<<< HEAD
+ignore all files under dev
+dev/.
+.vscode/
+=======
+#ignore all files under dev
+dev/
+>>>>>>> test_httptest2
+#Set up hte loocal environment for unit tests
+tests/testthat/local.R
+# Output files from R CMD check
+/*.Rcheck/
+/doc/
+/Meta/
+# RAQSAPI package files
+*.tar.gz
+*.zip
+RAQSAPI.code-workspace
+tests/testthat/testthat-problems.rds
+.vscode/
+.positai
+docs
+.github/workflows/deploy_to_gh-pages-new.yaml

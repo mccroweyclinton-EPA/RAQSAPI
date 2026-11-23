@@ -1,79 +1,140 @@
 Type: Package
 Package: RAQSAPI
-Version: 2.0.3
+Version: 2.0.6
 Title: A Simple Interface to the US EPA Air Quality System Data Mart API
 Description: Retrieve air monitoring data and associated metadata from the US
   Environmental Protection Agency's Air Quality System service using functions.
   See <https://aqs.epa.gov/aqsweb/documents/data_api.html> for details about
-  the US EPA Data Mart API.
+  the US EPA Data Mart API <doi:10.32614/CRAN.package.RAQSAPI>.
 Encoding: UTF-8
-Authors@R: c(person(given="Clinton", family="Mccrowey",
-                    email="mccrowey.clinton@epa.gov",
-                    role=c("cre", "aut"),
-                    comment="United States Enviornmental Protection
-                             Agency Region 3 Air and Radiation Division"),
-             person(given="Timothy", family="Sharac", role=c("ctb","rev"),
-                    email=NULL,
-                    comment="United States Enviornmental Protection Agency"),
-             person(given = "Nick", family = "Mangus", email = NULL,
-                    role=c("rev"),
-                    comment="United States Enviornmental Protection Agency"),
-             person(given = "Doug", family = "Jager",
-                    email=NULL, role=c("ctb", "rev"),
-                    comment="United States Enviornmental Protection Agency"),
-             person(given = "Ryan",family = "Brown",
-                    email=NULL, role=c("ctb", "rev"),
-                    comment="United States Enviornmental Protection Agency"),
-             person(given = "Daniel", family = "Garver",
-                    email=NULL, role=c("ctb", "rev"),
-                    comment="United States Enviornmental Protection Agency"),
-             person(given = "Benjamin", family = "Wells",
-                    email=NULL, role=c("ctb", "rev"),
-                    comment="United States Enviornmental Protection Agency"),
-             person(given = "Hayley", family= "Brittingham",
-                    email = NULL, role=c("crr", "ctr"),
-                    comment="Neptune and Company")
-             )
-URL: <https://github.com/USEPA/RAQSAPI>,
-     <https://aqs.epa.gov/aqsweb/documents/data_api.html>
+Authors@R: c(
+    person(given = "Clinton",
+           family = "Mccrowey",
+           email = "mccrowey.clinton@epa.gov",
+           role = c("cre", "aut"),
+           comment = c(ORCID = "0009-0001-1802-1518",
+                       employer = "United States Environmental Protection Agency, Region 3")),
+    person(given = "Timothy",
+           family = "Sharac",
+           role = c("ctb", "rev"),
+           comment  = c(employer = "United States Environmental Protection Agency")),
+    person(given = "Nick",
+           family = "Mangus",
+           role = "rev",
+           comment = c(employer = "United States Environmental Protection Agency")),
+    person(given = "Doug",
+           family = "Jager",
+           role = c("ctb", "rev"),
+           comment = c(employer = "United States Environmental Protection Agency")),
+    person(given = "Ryan",
+           family = "Brown",
+           role = c("ctb", "rev"),
+           comment = c(employer = "United States Environmental Protection Agency, Region 4")),
+    person(given = "Daniel",
+           family = "Garver",
+           role = c("ctb", "rev"),
+           comment = c(employer = "United States Environmental Protection Agency, Region 4")),
+    person(given = "Benjamin",
+           family = "Wells",
+           role = c("ctb", "rev"),
+           comment = c(employer = "United States Environmental Protection Agency")),
+    person(given = "Jeffrey",
+           family = "Hollister",
+           email = "hollister.jeff@epa.gov",
+           role = "rev",
+           comment = c(ORCID = "0000-0002-9254-9740",
+                       employer = "United States Environmental Protection Agency")),
+    person(given = "Cynthia",
+           family = "Stahl",
+           role = "rev",
+           comment=c(ORCID = "0009-0005-1291-9668",
+           employer = "United States Environmental Protection Agency, Region 3")),
+    person("United States Environmental Protection Agency",
+           role = c("aut", "cph", "ctb", "dtc", "fnd", "rev"),
+           comment = c("https://www.epa.gov",
+                       ROR = "03tns0030")),
+    person(given = "Hayley",
+           family = "Brittingham",
+           role = c("rev", "ctr"),
+           comment = c(employer = "Neptune and Company")),
+    person("Neptune and Company",
+           comment = "https://www.neptuneinc.org/",
+           role = c("ctr", "rev")),
+    person(given = "Edward",
+           family = "Andrews",
+           email = "edwards.andrews@wv.gov",
+           role = c("rev", "ctb"),
+           comment = c(employer = "West Virginia Department of Environmental Protection")),
+    person(given = "Maria",
+           family = "Morresi",
+           email = "Morresi.Maria@epa.gov",
+           role = c("ctr", "rev"),
+           comment = c(employer = "ASRC Federal Analytical Service")),
+    person("ASRC Federal Analytical Service",
+           comment = c("https://www.asrcfederal.com/",
+                       ROR = "02fnwes63"),
+           role = c("rev")),
+    person(given = "Milan", family = "Malfait",
+       email = "milan.malfait94@gmail.com",
+       role = c("rev"),
+       comment = c(ORCID = "0000-0001-9144-3701")),
+    person(given = "Rainer M", family = "Krug",
+           email = c("Rainer@krugs.de", "Rainer.Krug@sib.swiss"),
+           role = c("rev")),
+    person("SIB Swiss Institute of Bioinformatics",
+           comment = c("https://www.sib.swiss", ROR="002n09z45"),
+           role = c("rev")),
+    person(given = "Mark", family = "Padgham",
+           email = "mark.padgham@email.com",
+           role = c("rev"),
+           comment = c(ORCID = "0000-0003-2172-5265"))
+  )
+URL: https://usepa.github.io/RAQSAPI/, https://github.com/USEPA/RAQSAPI/, https://aqs.epa.gov/aqsweb/documents/data_api.html
 BugReports: https://github.com/USEPA/RAQSAPI/issues
-Depends: R (>= 4.0.0)
-Imports: 
-    dplyr,
+Depends: R (>= 4.5.0)
+Imports: dplyr,
     glue,
-    httr,
-    jsonlite,
+    httr2,
+    lifecycle,
     lubridate,
+    methods,
     magrittr,
     purrr,
+    rlang,
     stringr,
     tibble,
-    rlang,
-    lifecycle
-Suggests:
-    spelling, 
-    desc,
+    tidyselect
+Suggests: cli,
+    covr,
     devtools,
+    formatR,
     goodpractice,
+    httptest2,
     keyring,
     knitr,
-    markdown,
-    roxygen2,
+    pak,
     rmarkdown,
+    roxygen2,
+    spelling,
     testthat (>= 3.0.0),
-    usethis,
-    covr
-SystemRequirements: package manual requires pandoc (>= 1.14) http://pandoc.org
-RoxygenNote: 7.1.2
+    usethis
+SystemRequirements: package manual and Vignettes require pandoc
+                    (>= 1.14) (http://pandoc.org)
 VignetteBuilder: knitr
 BuildVignettes: true
 ByteCompile: true
-License: CC0
+License: MIT + file LICENSE
 License_is_FOSS: yes
 NeedsCompilation: no
 License_restricts_use: no
 Language: en-US
+Classification/ACM-2012: H.3.5 Information Systems—Web-based services,
+    J.2 Applied Computing—Earth and atmospheric sciences,
+    G.3 Mathematics of Computing—Probability and statistics
 Collate:
+    'RAQSAPI-package.R'
+    'utils-pipe.R'
+    'AQS_DATAMART_APIv2-S3-class.R'
     'AQSAPI_helperfunctions.R'
     'bysite.R'
     'bycounty.R'
@@ -85,8 +146,15 @@ Collate:
     'RAQSAPIlistfunctions.R'
     'setupfunctions.R'
     'zzz.R'
-    'RAQSAPI-package.R'
 Copyright: United States Environmental Protection Agency
 RdMacros: lifecycle
 Roxygen: list(markdown = TRUE)
+X-schema.org-keywords: United State Environmental Protection Agency,
+                       Environmental-data-retrieval, Air-Quality-System,
+                       AQS-DataMart, Air-monitoring, Environmental-monitoring
 Config/testthat/edition: 3
+Config/testthat/load-all: list(export_all = TRUE, helpers = TRUE)
+Config/testthat/parallel: false
+Config/build/clean-inst-doc: true
+Config/roxygen2/version: 8.1.1
+Config/roxygen2/markdown: TRUE

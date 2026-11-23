@@ -20,19 +20,19 @@ aqs_monitors_by_box(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
+\item{edate}{a R date object which represents the end date of the data
 selection. Only data on or before this date will be returned.}
 
-\item{minlat}{a R character object which represents the minimum latitude of
-a geographic box.  Decimal latitude with north begin
+\item{minlat}{a R character object that represents the minimum latitude of
+a geographic box.  Decimal latitude with north being
 positive. Only data north of this latitude will be
 returned.}
 
 \item{maxlat}{a R character object which represents the maximum latitude of
-a geographic box. Decimal latitude with north begin
+a geographic box. Decimal latitude with north being
 positive. Only data south of this latitude will be
 returned.}
 
@@ -48,42 +48,41 @@ returned. Note that -80 is less than -70.}
 
 \item{return_header}{If FALSE (default) only returns data requested. If TRUE
 returns a AQSAPI_v2 object which is a two item list that contains header
-information returned from the API server mostly used for debugging
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object of monitors from a
+a tibble or an AQS_DataMart_APIv2 S3 object of monitors from a
 latitude/longitude bounding box (_by_box).
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns a table of monitors and related metadata sites with the provided
 parameter, aggregated by latitude/longitude bounding box (_by_box) for
 bdate - edate time frame.
 }
-\section{by_box aggregate functions}{
-NA
+\note{
+All monitors that operated between the bdate and edate will be returned
 }
-
 \examples{
-#  returns a tibble of all ozone
+#  Returns a tibble of all ozone
           #  monitors in the vicinity of central Alabama that operated in
           #  1995
-          \dontrun{aqs_monitors_by_box(parameter="44201",
-                                       bdate=as.Date("19950101",
-                                                     format="\%Y\%m\%d"),
-                                       edate=as.Date("19951231",
-                                                     format="\%Y\%m\%d"),
-                                       minlat="33.3",
-                                       maxlat="33.6",
-                                       minlon="-87.0",
-                                       maxlon="-86.7"
+          \dontrun{aqs_monitors_by_box(parameter='44201',
+                                       bdate=as.Date('19950101',
+                                                     format='\%Y\%m\%d'),
+                                       edate=as.Date('19951231',
+                                                     format='\%Y\%m\%d'),
+                                       minlat='33.3',
+                                       maxlat='33.6',
+                                       minlon='-87.0',
+                                       maxlon='-86.7'
                                        )
                    }
 }
 \seealso{
-Other Aggregate _by_box functions: 
-\code{\link{aqs_annualsummary_by_box}()},
-\code{\link{aqs_sampledata_by_box}()}
+Other Aggregate _by_box functions:
+\code{\link[=aqs_annualsummary_by_box]{aqs_annualsummary_by_box()}},
+\code{\link[=aqs_sampledata_by_box]{aqs_sampledata_by_box()}}
 }
 \concept{Aggregate _by_box functions}

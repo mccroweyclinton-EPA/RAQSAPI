@@ -9,8 +9,8 @@ aqs_transactionsample_by_MA(
   bdate,
   edate,
   MA_code,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
+  cbdate = lubridate::NA_Date_,
+  cedate = lubridate::NA_Date_,
   return_header = FALSE
 )
 }
@@ -19,43 +19,43 @@ aqs_transactionsample_by_MA(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
-selection. Only data on or before this date will be
-returned.}
+\item{edate}{a R date object which represents the end date of the data
+selection. Only data on or before this date will be returned.}
 
 \item{MA_code}{a R character object which represents the 4 digit AQS
-Monitoring Agency code (with leading zeroes).}
+Monitoring Agency code (with leading zeroes). Use
+\code{\link[=aqs_mas]{aqs_mas()}} for a list of all
+Monitoring Agency (MA) codes and names available,}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
+\item{cbdate}{a R date object which represents a 'beginning
+date of last change' that indicates when the data was last
 updated. cbdate is used to filter data based on the change
 date. Only data that changed on or after this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
+\item{cedate}{a R date object which represents an 'end
+date of last change' that indicates when the data was last
 updated. cedate is used to filter data based on the change
 date. Only data that changed on or before this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two
-item list that contains header information returned
-from the API server mostly used for debugging
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object of transaction sample
+a tibble or an AQS_DataMart_APIv2 S3 object of transaction sample
 (raw) data in the AQS submission transaction format (RD)
 corresponding to the inputs provided.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns transactionsample data - aggregated by Monitoring agency (MA)
 in the AQS Submission Transaction Format (RD) sample (raw) data for
 a parameter code aggregated by matching input parameter, and
@@ -73,30 +73,28 @@ As the number of years of data being requested increases so does the
 length of time that it will take to retrieve results. There is also a
 5 second wait time inserted between successive API calls to prevent
 overloading the API server. This operation has a linear run time of
-/(Big O notation: O/(n + 5 seconds/)/).
+$mathcal(n + 5 seconds)$.
 }
 \examples{
-#Returns a AQS_Data Mart_APIv2 S3 object of
-         \dontrun{ #   all ozone transaction sample data for all monitors
-                   #   operated by South Coast Air Quality Management
-                   #   District collected on May 15, 2015
-                   #   North Carolina on May 15, 1995
-                   aqs_transactionsample_by_MA(parameter = "44201",
-                                                 bdate = as.Date("20150515",
-                                                         format = "\%Y\%m\%d"),
-                                                 edate = as.Date("20150515",
-                                                          format = "\%Y\%m\%d"),
-                                                 MA_code = "0972"
-                                                 )
+#Returns a tibble of ozone transaction sample data for all monitors
+          #operated by South Coast Air Quality Management District collected
+          #on May 15, 2015
+          \dontrun{aqs_transactionsample_by_MA(parameter = '44201',
+                                               bdate = as.Date('20150515',
+                                                          format = '\%Y\%m\%d'),
+                                               edate = as.Date('20150515',
+                                                          format = '\%Y\%m\%d'),
+                                               MA_code = '0972'
+                                               )
                  }
 }
 \seealso{
-Other Aggregate _by_state functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_state}()},
-\code{\link{aqs_qa_annualperformanceevaltransaction_by_state}()},
-\code{\link{aqs_quarterlysummary_by_box}()},
-\code{\link{aqs_quarterlysummary_by_cbsa}()},
-\code{\link{aqs_quarterlysummary_by_state}()},
-\code{\link{aqs_transactionsample_by_state}()}
+Other Aggregate _by_state functions:
+\code{\link[=aqs_qa_annualperformanceeval_by_state]{aqs_qa_annualperformanceeval_by_state()}},
+\code{\link[=aqs_qa_annualperformanceevaltransaction_by_state]{aqs_qa_annualperformanceevaltransaction_by_state()}},
+\code{\link[=aqs_quarterlysummary_by_box]{aqs_quarterlysummary_by_box()}},
+\code{\link[=aqs_quarterlysummary_by_cbsa]{aqs_quarterlysummary_by_cbsa()}},
+\code{\link[=aqs_quarterlysummary_by_state]{aqs_quarterlysummary_by_state()}},
+\code{\link[=aqs_transactionsample_by_state]{aqs_transactionsample_by_state()}}
 }
 \concept{Aggregate _by_state functions}

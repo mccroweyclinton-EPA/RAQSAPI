@@ -1,151 +1,177 @@
-#' @importFrom magrittr `%>%`()
-test_that("by_state functions", {
-testthat::skip_if_offline()
-testthat::skip_on_cran()
-server <- "AQSDatamartAPI"
-datamartAPI_user <- "test@aqs.api"
+#' @importFrom magrittr `%>%`() `%T>%`()
+if (file.exists("local.R")) {
+  AQScredentials <- RAQSAPItestsetup_helper()
+  datamartAPI_user <- AQScredentials$datamartAPI_user
+  datamartAPI_key <- AQScredentials$datamartAPI_key
+} else {
+  datamartAPI_user <- Sys.getenv("RAQSAPIUSERNAME", names = TRUE)
+  datamartAPI_key <- Sys.getenv("RAQSAPIKEY", names = TRUE)
+}
 
-datamartAPI_user <- "test@aqs.api"
+RAQSAPI::aqs_credentials(username = datamartAPI_user, key = datamartAPI_key)
 
-  RAQSAPI::aqs_credentials(username = datamartAPI_user,
-                           key = "test"
-                           )
+with_mock_dir("bystate", {
+  test_that("bystate functions", {
+    if (
+      RAQSAPI:::invalid(datamartAPI_user) ||
+        RAQSAPI:::invalid(datamartAPI_key) ||
+        datamartAPI_key == "redacted" ||
+        datamartAPI_user == "redacted"
+    ) {
+      stop("credentials not loaded in unit tests")
+    }
+    if (!exists(x = "RAQSAPItestsetup_helper", mode = "function")) {
+      rlang::abort(message = "RAQSAPItestsetup_helper function not loaded during unit test")
+    }
 
-aqs_monitors_by_state(parameter = "88101",
-                      bdate = as.Date("20170101", format = "%Y%m%d"),
-                      edate = as.Date("20171231", format = "%Y%m%d"),
-                      stateFIPS = "01",
-                      return_header = TRUE
-                      )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_monitors_by_state(
+      parameter = "88101",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20171231", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_sampledata_by_state(parameter = "45201",
-                        bdate = as.Date("19950515", format = "%Y%m%d"),
-                        edate = as.Date("19950515", format = "%Y%m%d"),
-                        stateFIPS = "37",
-                        return_header = TRUE
-                        )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_sampledata_by_state(
+      parameter = "45201",
+      bdate = as.Date("19950515", format = "%Y%m%d"),
+      edate = as.Date("19950515", format = "%Y%m%d"),
+      stateFIPS = "37",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_annualsummary_by_state(parameter = "45201",
-                                  bdate = as.Date("19950515",
-                                                 format = "%Y%m%d"),
-                                  edate = as.Date("19950515",
-                                                 format = "%Y%m%d"),
-                                  stateFIPS = "37",
-                                  return_header = TRUE
-                                  )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_annualsummary_by_state(
+      parameter = "45201",
+      bdate = as.Date("19950515", format = "%Y%m%d"),
+      edate = as.Date("19990515", format = "%Y%m%d"),
+      stateFIPS = "37",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_dailysummary_by_state(parameter = "45201",
-                          bdate = as.Date("19950515", format = "%Y%m%d"),
-                          edate = as.Date("19950515", format = "%Y%m%d"),
-                          stateFIPS = "37",
-                          return_header = TRUE
-                          )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_dailysummary_by_state(
+      parameter = "45201",
+      bdate = as.Date("19950515", format = "%Y%m%d"),
+      edate = as.Date("19950515", format = "%Y%m%d"),
+      stateFIPS = "37",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_qa_blanks_by_state(parameter = "88101",
-                                  bdate = as.Date("20180101",
-                                                  format = "%Y%m%d"),
-                                  edate = as.Date("20180131",
-                                                  format = "%Y%m%d"),
-                                  stateFIPS = "01",
-                                  return_header = TRUE
-                                  )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_blanks_by_state(
+      parameter = "88101",
+      bdate = as.Date("20180101", format = "%Y%m%d"),
+      edate = as.Date("20180131", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_qa_collocated_assessments_by_state(parameter = "88101",
-                                       bdate = as.Date("20130101",
-                                                     format = "%Y%m%d"),
-                                       edate = as.Date("20130131",
-                                                     format = "%Y%m%d"),
-                                       stateFIPS = "01",
-                                       return_header = TRUE
-                                      )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_collocated_assessments_by_state(
+      parameter = "88101",
+      bdate = as.Date("20130101", format = "%Y%m%d"),
+      edate = as.Date("20130131", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_qa_flowrateaudit_by_state(parameter = "88101",
-                              bdate = as.Date("20180101", format = "%Y%m%d"),
-                              edate = as.Date("20180131", format = "%Y%m%d"),
-                              stateFIPS = "01",
-                              return_header = TRUE
-                              )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_flowrateaudit_by_state(
+      parameter = "88101",
+      bdate = as.Date("20180101", format = "%Y%m%d"),
+      edate = as.Date("20180131", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_qa_flowrateverification_by_state(parameter = "88101",
-                                  bdate = as.Date("20180101",
-                                                  format = "%Y%m%d"),
-                                  edate = as.Date("20180131",
-                                                  format = "%Y%m%d"),
-                                  stateFIPS = "01",
-                                  return_header = TRUE
-                                  )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_flowrateverification_by_state(
+      parameter = "88101",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20190131", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_qa_one_point_qc_by_state(parameter = "44201",
-                             bdate = as.Date("20180101", format = "%Y%m%d"),
-                             edate = as.Date("20180131", format = "%Y%m%d"),
-                             stateFIPS = "25",
-                             return_header = TRUE
-                             )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_one_point_qc_by_state(
+      parameter = "44201",
+      bdate = as.Date("20180101", format = "%Y%m%d"),
+      edate = as.Date("20180131", format = "%Y%m%d"),
+      stateFIPS = "25",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_qa_one_point_qc_by_state(parameter = "44201",
-                             bdate = as.Date("20180101", format = "%Y%m%d"),
-                             edate = as.Date("20180131", format = "%Y%m%d"),
-                             stateFIPS = "25",
-                             return_header = TRUE
-                            )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_one_point_qc_by_state(
+      parameter = "44201",
+      bdate = as.Date("20180101", format = "%Y%m%d"),
+      edate = as.Date("20180131", format = "%Y%m%d"),
+      stateFIPS = "25",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_qa_pep_audit_by_state(parameter = "88101",
-                          bdate = as.Date("20170101", format = "%Y%m%d"),
-                          edate = as.Date("20171231", format = "%Y%m%d"),
-                          stateFIPS = "01",
-                          return_header = TRUE
-                          )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_pep_audit_by_state(
+      parameter = "88101",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20171231", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
-aqs_transactionsample_by_state(parameter = "45201",
-                               bdate = as.Date("19950515",
-                                               format = "%Y%m%d"),
-                               edate = as.Date("19950515",
-                                               format = "%Y%m%d"),
-                               stateFIPS = "37",
-                               return_header = TRUE
-                               )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_transactionsample_by_state(
+      parameter = "45201",
+      bdate = as.Date("19950515", format = "%Y%m%d"),
+      edate = as.Date("19950515", format = "%Y%m%d"),
+      stateFIPS = "37",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
- aqs_qa_annualpeferomanceeval_by_state(parameter = "44201",
-                                       bdate = as.Date("20170101",
-                                                       format = "%Y%m%d"),
-                                       edate = as.Date("20171231",
-                                                       format = "%Y%m%d"),
-                                       stateFIPS = "01",
-                                       return_header = TRUE
-                                       )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_annualperformanceeval_by_state(
+      parameter = "44201",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20171231", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
- aqs_qa_annualperformanceevaltransaction_by_state(parameter = "44201",
-                                                  bdate = as.Date("20170101",
-                                                           format = "%Y%m%d"),
-                                                  edate = as.Date("20171231",
-                                                            format = "%Y%m%d"),
-                                                  stateFIPS = "01",
-                                                  return_header = TRUE
-                                                  )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
+    aqs_qa_annualperformanceevaltransaction_by_state(
+      parameter = "44201",
+      bdate = as.Date("20170101", format = "%Y%m%d"),
+      edate = as.Date("20171231", format = "%Y%m%d"),
+      stateFIPS = "01",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
 
- aqs_quarterlysummary_by_state(parameter = "88101",
-                                        bdate = as.Date("20160101",
-                                                        format = "%Y%m%d"),
-                                        edate = as.Date("20170228",
-                                                        format = "%Y%m%d"),
-                                        stateFIPS = "37",
-                                        return_header = TRUE
-                                                  )[[1]]$Header$status %>%
-    expect_match(regexp = "Success")
-
-
+    aqs_quarterlysummary_by_state(
+      parameter = "88101",
+      bdate = as.Date("20160101", format = "%Y%m%d"),
+      edate = as.Date("20171231", format = "%Y%m%d"),
+      stateFIPS = "37",
+      return_header = TRUE
+    ) %T>%
+      expect_no_error() %>%
+      RAQSAPI:::AQS_DATAMART_APIv2_validator()
+  })
 })

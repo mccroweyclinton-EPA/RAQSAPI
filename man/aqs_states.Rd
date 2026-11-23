@@ -7,22 +7,21 @@
 aqs_states(return_header = FALSE)
 }
 \arguments{
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns an AQSAPI_v2 object which is a two
-item list that contains header information returned
-from the API server mostly used for debugging
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object of states and their
+a tibble or an AQS_DataMart_APIv2 S3 object of states and their
 associated FIPS codes.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns a table of US states, US territories, and the
 district or Columbia with their respective FIPS codes.
 }
 \examples{
-#returns a tibble of states and their FIPS codes
-          \dontrun{aqs_states()}
+# Returns a tibble of states and their FIPS codes
+          \dontrun{ aqs_states() }
 }

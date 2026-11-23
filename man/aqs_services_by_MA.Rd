@@ -10,8 +10,8 @@ aqs_services_by_MA(
   edate,
   MA_code,
   service,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
+  cbdate = lubridate::NA_Date_,
+  cedate = lubridate::NA_Date_,
   AQS_domain = "aqs.epa.gov"
 )
 }
@@ -20,29 +20,30 @@ aqs_services_by_MA(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
-selection. Only data on or before this date will be
-returned.}
+\item{edate}{a R date object which represents the end date of the data
+selection. Only data on or before this date will be returned.}
 
 \item{MA_code}{a R character object which represents the 4 digit AQS
-Monitoring Agency code (with leading zeroes).}
+Monitoring Agency code (with leading zeroes). Use
+\code{\link[=aqs_mas]{aqs_mas()}} for a list of all
+Monitoring Agency (MA) codes and names available,}
 
-\item{service}{a string which represents the services provided by the AQS API
-For a list of available services @seealso
+\item{service}{a string which represents the services provided by the AQS
+API. For a list of available services Refer to
 \url{https://aqs.epa.gov/aqsweb/documents/data_api.html#services}}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
+\item{cbdate}{a R date object which represents a 'beginning
+date of last change' that indicates when the data was last
 updated. cbdate is used to filter data based on the change
 date. Only data that changed on or after this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
+\item{cedate}{a R date object which represents an 'end
+date of last change' that indicates when the data was last
 updated. cedate is used to filter data based on the change
 date. Only data that changed on or before this date will be
 returned. This is an optional variable which defaults
@@ -57,12 +58,43 @@ AQS API. A AQS_DATAMART_APIv2 is a 2 item named list in which the
 first item ($Header) is a tibble of header information from the
 AQS API and the second item ($Data) is a tibble of the data
 returned.
+
+a AQS_DATAMART_APIv2 S3 object that is the return value from the
+AQS API. A AQS_DATAMART_APIv2 is a 2 item named list in which the
+first item ($Header) is a tibble of header information from the
+AQS API and the second item ($Data) is a tibble of the data
+returned.
 }
 \description{
-a helper function that abstracts the formatting of the inputs
+A helper function that abstracts the formatting of the inputs
 for a call to aqs away from the calling function for
 aggregations by Monitoring Agency (MA)
 then calls the aqs and returns the result.
 This helper function is not meant to be called directly from
 external functions.
 }
+\examples{
+# if an user were to call aqs_qa_annualperformanceeval_by_MA())
+         # for information containing annual performance evaluation data
+         #  for ozone where the monitoring agency is the Alabama Department
+         #  of Environmental Management (MA_code 0013).
+         # [aqs_qa_annualperformanceeval_by_MA(parameter = '44201',
+         #                                     bdate = as.Date('20170101',
+         #                                                format = '\%Y\%m\%d'),
+         #                                     edate = as.Date('20171231',
+         #                                                format = '\%Y\%m\%d'),
+         #                                     MA_code = '0013'
+         #
+         #                                    )]
+         # then aqs_qa_annualperformanceeval_by_MA() would call this helper
+         # function with the following inputs.
+          \dontrun{aqs_services_by_MA(parameter = '44201',
+                                      bdate = as.Date('20170101',
+                                                      format = '\%Y\%m\%d'),
+                                      edate = as.Date('20171231',
+                                                      format = '\%Y\%m\%d'),
+                                      MA_code = '0013',
+                                      service = 'qaAnnualPerformanceEvaluations')
+                  }
+}
+\keyword{internal}

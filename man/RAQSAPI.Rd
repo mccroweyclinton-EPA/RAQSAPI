@@ -2,13 +2,15 @@
 % Please edit documentation in R/RAQSAPI-package.R
 \docType{package}
 \name{RAQSAPI}
+\alias{RAQSAPI-package}
 \alias{RAQSAPI}
 \title{RAQSAPI: A R Interface to The United States Environmental Protection
-Agency's Air Quality System Data Mart RESTful API server.}
+Agency's Air Quality System Data Mart RESTful API server}
 \description{
-RAQSAPI is a package for R that connects the R programming
-environment to the United State's Environmental protection agency's
-Air Quality System (AQS) Data Mart API for retrieval of air
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
+RAQSAPI is a package for R that connects
+the R programming environment to the United States Environmental protection
+agency's Air Quality System (AQS) Data Mart API for retrieval of air
 monitoring data.
 
 There are two things that you must do before using this package.
@@ -18,7 +20,7 @@ There are two things that you must do before using this package.
 must be called before continuing.
 }
 
-please use vignette(RAQSAPI) for more details about this package.
+please use \code{vignette(RAQSAPI)} for more details about this package.
 
 EPA Disclaimer:
 This software/application was developed by the U.S. Environmental Protection
@@ -33,3 +35,45 @@ recommendation or favoring by the USEPA. The USEPA seal and logo shall not
 be used in any manner to imply endorsement of any commercial product or
 activity by the USEPA or the United States Government.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://usepa.github.io/RAQSAPI/}
+  \item \url{https://github.com/USEPA/RAQSAPI/}
+  \item \url{https://aqs.epa.gov/aqsweb/documents/data_api.html}
+  \item Report bugs at \url{https://github.com/USEPA/RAQSAPI/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Clinton Mccrowey \email{mccrowey.clinton@epa.gov} (\href{https://orcid.org/0009-0001-1802-1518}{ORCID}) (employer: United States Environmental Protection Agency, Region 3)
+
+Authors:
+\itemize{
+  \item Clinton Mccrowey \email{mccrowey.clinton@epa.gov} (\href{https://orcid.org/0009-0001-1802-1518}{ORCID}) (employer: United States Environmental Protection Agency, Region 3)
+  \item United States Environmental Protection Agency (\href{https://ror.org/03tns0030}{ROR}) (https://www.epa.gov) [copyright holder, contributor, data contributor, funder, reviewer]
+}
+
+Other contributors:
+\itemize{
+  \item Timothy Sharac (employer: United States Environmental Protection Agency) [contributor, reviewer]
+  \item Nick Mangus (employer: United States Environmental Protection Agency) [reviewer]
+  \item Doug Jager (employer: United States Environmental Protection Agency) [contributor, reviewer]
+  \item Ryan Brown (employer: United States Environmental Protection Agency, Region 4) [contributor, reviewer]
+  \item Daniel Garver (employer: United States Environmental Protection Agency, Region 4) [contributor, reviewer]
+  \item Benjamin Wells (employer: United States Environmental Protection Agency) [contributor, reviewer]
+  \item Jeffrey Hollister \email{hollister.jeff@epa.gov} (\href{https://orcid.org/0000-0002-9254-9740}{ORCID}) (employer: United States Environmental Protection Agency) [reviewer]
+  \item Cynthia Stahl (\href{https://orcid.org/0009-0005-1291-9668}{ORCID}) (employer: United States Environmental Protection Agency, Region 3) [reviewer]
+  \item Hayley Brittingham (employer: Neptune and Company) [reviewer, contractor]
+  \item Neptune and Company (https://www.neptuneinc.org/) [contractor, reviewer]
+  \item Edward Andrews \email{edwards.andrews@wv.gov} (employer: West Virginia Department of Environmental Protection) [reviewer, contributor]
+  \item Maria Morresi \email{Morresi.Maria@epa.gov} (employer: ASRC Federal Analytical Service) [contractor, reviewer]
+  \item ASRC Federal Analytical Service (\href{https://ror.org/02fnwes63}{ROR}) (https://www.asrcfederal.com/) [reviewer]
+  \item Milan Malfait \email{milan.malfait94@gmail.com} (\href{https://orcid.org/0000-0001-9144-3701}{ORCID}) [reviewer]
+  \item Rainer M Krug \email{Rainer@krugs.de} \email{Rainer.Krug@sib.swiss} [reviewer]
+  \item SIB Swiss Institute of Bioinformatics (\href{https://ror.org/002n09z45}{ROR}) (https://www.sib.swiss) [reviewer]
+  \item Mark Padgham \email{mark.padgham@email.com} (\href{https://orcid.org/0000-0003-2172-5265}{ORCID}) [reviewer]
+}
+
+}
+\keyword{internal}

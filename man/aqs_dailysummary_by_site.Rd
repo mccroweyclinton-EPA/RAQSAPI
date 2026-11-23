@@ -11,8 +11,8 @@ aqs_dailysummary_by_site(
   stateFIPS,
   countycode,
   sitenum,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
+  cbdate = lubridate::NA_Date_,
+  cedate = lubridate::NA_Date_,
   return_header = FALSE
 )
 }
@@ -21,56 +21,57 @@ aqs_dailysummary_by_site(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
+\item{edate}{a R date object which represents the end date of the data
 selection. Only data on or before this date will be returned.}
 
 \item{stateFIPS}{a R character object which represents the 2 digit state
 FIPS code (with leading zero) for the state being
-requested. @seealso \code{\link[=aqs_states]{aqs_states()}} for the list of
+requested. Use \code{\link[=aqs_states]{aqs_states()}} for the list of
 available FIPS codes.}
 
 \item{countycode}{a R character object which represents the 3 digit state
 FIPS code for the county being requested (with leading
-zero(s)). @seealso \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}} for the
-list of available county codes for each state.}
+zero(s)). Use \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}}
+for the list of available county codes in each state.}
 
 \item{sitenum}{a R character object which represents the 4 digit site number
 (with leading zeros) within the county and state being
-requested.}
+requested. Use \code{\link[=aqs_sites_by_county]{aqs_sites_by_county()}}
+for the list of available site numbers in  given county and
+state.}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
+\item{cbdate}{a R date object which represents a 'beginning
+date of last change' that indicates when the data was last
 updated. cbdate is used to filter data based on the change
 date. Only data that changed on or after this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
+\item{cedate}{a R date object which represents an 'end
+date of last change' that indicates when the data was last
 updated. cedate is used to filter data based on the change
 date. Only data that changed on or before this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two
-item list that contains header information returned
-from the API server mostly used for debugging
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object that contains daily
+a tibble or an AQS_DataMart_APIv2 S3 object that contains daily
 summary statistics for the given parameter for a single site. An
-AQS_Data Mart_APIv2 is a 2 item named list in which the first item
-(\$Header) is a tibble of header information from the AQS API and
-the second item (\$Data) is a tibble of the data returned.
+AQS_DataMart_APIv2 is a 2 item named list in which the first item
+($Header) is a tibble of header information from the AQS API and
+the second item ($Data) is a tibble of the data returned.
 }
 \description{
-\lifecycle{stable}
-Returns multiple years of data where daily data is
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+Returns multiple years of data where dailysummary data is
 aggregated at the site level. Returned is a daily summary
 matching the input parameter stateFIPS, countycode, and sitenum
 provided for bdate - edate time frame. Data is aggregated at the
@@ -88,39 +89,38 @@ of years of data being requested increases so does the length of time
 that it will take to retrieve results. There is also a 5 second wait
 time inserted between successive API calls to prevent overloading the
 API server. This operation has a linear run time of
-/(Big O notation: O/(n + 5 seconds/)/).
+$mathcal(n + 5 seconds)$.
 }
 \examples{
 #Returns a tibble of daily summary ozone
           #  data for the Millbrook School site (\#0014) in Wake County,
           #  NC for June 18, 2017.
  \dontrun{
-             aqs_dailysummary_by_site(parameter = "44201",
-                                      bdate = as.Date("20160618",
-                                                      format = "\%Y\%m\%d"),
-                                      edate = as.Date("20190618",
-                                                      format = "\%Y\%m\%d"),
-                                      stateFIPS = "37",
-                                      countycode = "183",
-                                     sitenum = "0014"
+             aqs_dailysummary_by_site(parameter = '44201',
+                                      bdate = as.Date('20160618',
+                                                      format = '\%Y\%m\%d'),
+                                      edate = as.Date('20190618',
+                                                      format = '\%Y\%m\%d'),
+                                      stateFIPS = '37',
+                                      countycode = '183',
+                                     sitenum = '0014'
                                      )
          }
 }
 \seealso{
-Other Aggregate _by_site functions: 
-\code{\link{aqs_annualsummary_by_site}()},
-\code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
-\code{\link{aqs_qa_annualperformanceevaltransaction_by_county}()},
-\code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
-\code{\link{aqs_qa_blanks_by_site}()},
-\code{\link{aqs_qa_collocated_assessments_by_site}()},
-\code{\link{aqs_qa_flowrateaudit_by_site}()},
-\code{\link{aqs_qa_flowrateverification_by_site}()},
-\code{\link{aqs_qa_one_point_qc_by_site}()},
-\code{\link{aqs_qa_pep_audit_by_site}()},
-\code{\link{aqs_sampledata_by_site}()},
-\code{\link{aqs_services_by_site}()},
-\code{\link{aqs_transactionsample_by_site}()}
+Other Aggregate _by_site functions:
+\code{\link[=aqs_annualsummary_by_site]{aqs_annualsummary_by_site()}},
+\code{\link[=aqs_monitors_by_site]{aqs_monitors_by_site()}},
+\code{\link[=aqs_qa_annualperformanceeval_by_site]{aqs_qa_annualperformanceeval_by_site()}},
+\code{\link[=aqs_qa_annualperformanceevaltransaction_by_county]{aqs_qa_annualperformanceevaltransaction_by_county()}},
+\code{\link[=aqs_qa_annualperformanceevaltransaction_by_site]{aqs_qa_annualperformanceevaltransaction_by_site()}},
+\code{\link[=aqs_qa_blanks_by_site]{aqs_qa_blanks_by_site()}},
+\code{\link[=aqs_qa_collocated_assessments_by_site]{aqs_qa_collocated_assessments_by_site()}},
+\code{\link[=aqs_qa_flowrateaudit_by_site]{aqs_qa_flowrateaudit_by_site()}},
+\code{\link[=aqs_qa_flowrateverification_by_site]{aqs_qa_flowrateverification_by_site()}},
+\code{\link[=aqs_qa_one_point_qc_by_site]{aqs_qa_one_point_qc_by_site()}},
+\code{\link[=aqs_qa_pep_audit_by_site]{aqs_qa_pep_audit_by_site()}},
+\code{\link[=aqs_sampledata_by_site]{aqs_sampledata_by_site()}},
+\code{\link[=aqs_transactionsample_by_site]{aqs_transactionsample_by_site()}}
 }
 \concept{Aggregate _by_site functions}

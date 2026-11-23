@@ -13,8 +13,8 @@ aqs_services_by_site(
   sitenum,
   duration = NA_character_,
   service,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
+  cbdate = lubridate::NA_Date_,
+  cedate = lubridate::NA_Date_,
   AQS_domain = "aqs.epa.gov"
 )
 }
@@ -23,25 +23,27 @@ aqs_services_by_site(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
+\item{edate}{a R date object which represents the end date of the data
 selection. Only data on or before this date will be returned.}
 
 \item{stateFIPS}{a R character object which represents the 2 digit state
 FIPS code (with leading zero) for the state being
-requested. @seealso \code{\link[=aqs_states]{aqs_states()}} for the list of
+requested. Use \code{\link[=aqs_states]{aqs_states()}} for the list of
 available FIPS codes.}
 
 \item{countycode}{a R character object which represents the 3 digit state
 FIPS code for the county being requested (with leading
-zero(s)). @seealso \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}} for the
-list of available county codes for each state.}
+zero(s)). Use \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}}
+for the list of available county codes in each state.}
 
 \item{sitenum}{a R character object which represents the 4 digit site number
 (with leading zeros) within the county and state being
-requested.}
+requested. Use \code{\link[=aqs_sites_by_county]{aqs_sites_by_county()}}
+for the list of available site numbers in  given county and
+state.}
 
 \item{duration}{an optional R character string that represents the
 parameter duration code that limits returned data
@@ -50,23 +52,23 @@ NA_character_ results in no filtering based on
 duration code.Valid durations include actual sample
 durations and not calculated durations such as 8
 hour CO or $O_3$ rolling averages, 3/6 day PM
-averages or Pb 3 month rolling averages.
-@seealso \code{\link[=aqs_sampledurations]{aqs_sampledurations()}} for a list of all
+averages or Pb 3 month rolling averages. Use
+\code{\link[=aqs_sampledurations]{aqs_sampledurations()}} for a list of all
 available duration codes.}
 
 \item{service}{a string which represents the services provided by the AQS
-API. For a list of available services @seealso
+API. For a list of available services Refer to
 \url{https://aqs.epa.gov/aqsweb/documents/data_api.html#services}}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
+\item{cbdate}{a R date object which represents a 'beginning
+date of last change' that indicates when the data was last
 updated. cbdate is used to filter data based on the change
 date. Only data that changed on or after this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
+\item{cedate}{a R date object which represents an 'end
+date of last change' that indicates when the data was last
 updated. cedate is used to filter data based on the change
 date. Only data that changed on or before this date will be
 returned. This is an optional variable which defaults
@@ -83,27 +85,36 @@ AQS API and the second item ($Data) is a tibble of the data
 returned.
 }
 \description{
-a helper function that abstracts the formatting of the inputs
+A helper function that abstracts the formatting of the inputs
 for a call to aqs away from the calling function for
 aggregations by site then calls the aqs and returns the
 result. This helper function is not meant to be called
 directly from external functions.
 }
-\seealso{
-Other Aggregate _by_site functions: 
-\code{\link{aqs_annualsummary_by_site}()},
-\code{\link{aqs_dailysummary_by_site}()},
-\code{\link{aqs_monitors_by_site}()},
-\code{\link{aqs_qa_annualpeferomanceeval_by_site}()},
-\code{\link{aqs_qa_annualperformanceevaltransaction_by_county}()},
-\code{\link{aqs_qa_annualperformanceevaltransaction_by_site}()},
-\code{\link{aqs_qa_blanks_by_site}()},
-\code{\link{aqs_qa_collocated_assessments_by_site}()},
-\code{\link{aqs_qa_flowrateaudit_by_site}()},
-\code{\link{aqs_qa_flowrateverification_by_site}()},
-\code{\link{aqs_qa_one_point_qc_by_site}()},
-\code{\link{aqs_qa_pep_audit_by_site}()},
-\code{\link{aqs_sampledata_by_site}()},
-\code{\link{aqs_transactionsample_by_site}()}
+\examples{
+# if an user were to call aqs_qa_annualperformanceeval_by_site()
+         # for ozone at the Fairhope site in Baldwin County, AL for 2017.
+         # [aqs_qa_annualperformanceeval_by_site(parameter = '44201',
+         #                                       bdate = as.Date('20170101',
+         #                                               format = '\%Y\%m\%d'),
+         #                                       edate = as.Date('20171231',
+         #                                                format = '\%Y\%m\%d'),
+         #                                       stateFIPS = '01',
+         #                                       countycode = '003',
+         #                                       sitenum = '0010'
+         #                                       )]
+         # then aqs_qa_annualperformanceeval_by_site() would call this helper
+         # function with the following inputs.
+          \dontrun{aqs_services_by_site(parameter = '44201',
+                                        bdate = as.Date('20170101',
+                                                      format = '\%Y\%m\%d'),
+                                        edate = as.Date('20171231',
+                                                      format = '\%Y\%m\%d'),
+                                        stateFIPS = '01',
+                                        countycode = '003',
+                                        sitenum = '0010',
+                                        service = 'qaAnnualPerformanceEvaluations')
+                  }
 }
-\concept{Aggregate _by_site functions}
+\concept{Aggregate _by_site functions AQS_services}
+\keyword{internal}

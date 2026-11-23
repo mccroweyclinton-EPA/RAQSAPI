@@ -11,8 +11,8 @@ aqs_sampledata_by_county(
   stateFIPS,
   countycode,
   duration = NA_character_,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
+  cbdate = lubridate::NA_Date_,
+  cedate = lubridate::NA_Date_,
   return_header = FALSE
 )
 }
@@ -21,22 +21,21 @@ aqs_sampledata_by_county(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
-selection. Only data on or before this date will be
-returned.}
+\item{edate}{a R date object which represents the end date of the data
+selection. Only data on or before this date will be returned.}
 
 \item{stateFIPS}{a R character object which represents the 2 digit state
 FIPS code (with leading zero) for the state being
-requested. @seealso \code{\link[=aqs_states]{aqs_states()}} for the list of
+requested. Use \code{\link[=aqs_states]{aqs_states()}} for the list of
 available FIPS codes.}
 
 \item{countycode}{a R character object which represents the 3 digit state
 FIPS code for the county being requested (with leading
-zero(s)). @seealso \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}} for the
-list of available county codes for each state.}
+zero(s)). Use \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}}
+for the list of available county codes in each state.}
 
 \item{duration}{an optional R character string that represents the
 parameter duration code that limits returned data
@@ -45,40 +44,39 @@ NA_character_ results in no filtering based on
 duration code.Valid durations include actual sample
 durations and not calculated durations such as 8
 hour CO or $O_3$ rolling averages, 3/6 day PM
-averages or Pb 3 month rolling averages.
-@seealso \code{\link[=aqs_sampledurations]{aqs_sampledurations()}} for a list of all
+averages or Pb 3 month rolling averages. Use
+\code{\link[=aqs_sampledurations]{aqs_sampledurations()}} for a list of all
 available duration codes.}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
+\item{cbdate}{a R date object which represents a 'beginning
+date of last change' that indicates when the data was last
 updated. cbdate is used to filter data based on the change
 date. Only data that changed on or after this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
+\item{cedate}{a R date object which represents an 'end
+date of last change' that indicates when the data was last
 updated. cedate is used to filter data based on the change
 date. Only data that changed on or before this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two item
-list that contains header information returned from
-the API server mostly used for debugging purposes in
-addition to the data requested.}
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
+purposes in addition to the data requested.}
 }
 \value{
 a tibble or an AQS_Data_Mart_APIv2 S3 object containing sample data
 for all monitors matching stateFIPS and county_code for the given
-parameter. An AQS_Data Mart_APIv2 is a 2 item named list in which
+parameter. An AQS_DataMart_APIv2 is a 2 item named list in which
 the first item /(/$Header/) is a tibble of header information from
 the AQS API and the second item /(/$Data/) is a tibble of the data
 returned.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns a single tibble with the requested data. If
 return_header is TRUE returns a list
 of AQSAPI_v2 objects where each index of the list is an
@@ -101,36 +99,36 @@ years of data will require multiple API calls. As the number of years
 of data being requested increases so does the length of time that it
 will take to retrieve results. There is also a 5 second wait
 time inserted between successive API calls to prevent overloading the
-API server. Fortunately this operation has a linear run time
-/(Big O notation: O/(n + 5 seconds/)/).
+API server. This operation has a linear run time of
+$mathcal(n + 5 seconds)$.
 }
 \examples{
 # returns all FRM/FEM PM2.5 data for Wake County, NC between
           #  January 1, 2015 - February 28, 2016
- \dontrun{aqs_sampledata_by_county(parameter = "88101",
-                                   bdate = as.Date("20150101",
-                                                   format = "\%Y\%m\%d"),
-                                   edate=as.Date("20160228",
-                                                   format = "\%Y\%m\%d"),
-                                   stateFIPS = "37",
-                                   countycode = "183"
+ \dontrun{aqs_sampledata_by_county(parameter = '88101',
+                                   bdate = as.Date('20150101',
+                                                   format = '\%Y\%m\%d'),
+                                   edate=as.Date('20160228',
+                                                 format = '\%Y\%m\%d'),
+                                   stateFIPS = '37',
+                                   countycode = '183'
                                    )
          }
 }
 \seealso{
-Other Aggregate _by_county functions: 
-\code{\link{aqs_annualsummary_by_county}()},
-\code{\link{aqs_dailysummary_by_county}()},
-\code{\link{aqs_monitors_by_county}()},
-\code{\link{aqs_qa_annualperformanceeval_by_county}()},
-\code{\link{aqs_qa_blanks_by_county}()},
-\code{\link{aqs_qa_collocated_assessments_by_county}()},
-\code{\link{aqs_qa_flowrateaudit_by_county}()},
-\code{\link{aqs_qa_flowrateverification_by_county}()},
-\code{\link{aqs_qa_one_point_qc_by_county}()},
-\code{\link{aqs_qa_pep_audit_by_county}()},
-\code{\link{aqs_quarterlysummary_by_county}()},
-\code{\link{aqs_quarterlysummary_by_site}()},
-\code{\link{aqs_transactionsample_by_county}()}
+Other Aggregate _by_county functions:
+\code{\link[=aqs_annualsummary_by_county]{aqs_annualsummary_by_county()}},
+\code{\link[=aqs_dailysummary_by_county]{aqs_dailysummary_by_county()}},
+\code{\link[=aqs_monitors_by_county]{aqs_monitors_by_county()}},
+\code{\link[=aqs_qa_annualperformanceeval_by_county]{aqs_qa_annualperformanceeval_by_county()}},
+\code{\link[=aqs_qa_blanks_by_county]{aqs_qa_blanks_by_county()}},
+\code{\link[=aqs_qa_collocated_assessments_by_county]{aqs_qa_collocated_assessments_by_county()}},
+\code{\link[=aqs_qa_flowrateaudit_by_county]{aqs_qa_flowrateaudit_by_county()}},
+\code{\link[=aqs_qa_flowrateverification_by_county]{aqs_qa_flowrateverification_by_county()}},
+\code{\link[=aqs_qa_one_point_qc_by_county]{aqs_qa_one_point_qc_by_county()}},
+\code{\link[=aqs_qa_pep_audit_by_county]{aqs_qa_pep_audit_by_county()}},
+\code{\link[=aqs_quarterlysummary_by_county]{aqs_quarterlysummary_by_county()}},
+\code{\link[=aqs_quarterlysummary_by_site]{aqs_quarterlysummary_by_site()}},
+\code{\link[=aqs_transactionsample_by_county]{aqs_transactionsample_by_county()}}
 }
 \concept{Aggregate _by_county functions}

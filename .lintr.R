@@ -1,0 +1,19 @@
+
+linters <- linters_with_defaults(
+    assignment_linter(operator=c("<-", "%<>%", "%>%")),
+    brace_linter(allow_single_line = TRUE),
+    return_linter(return_style = "explicit"),
+    line_length_linter(length = 125L),
+    object_name_linter(styles = c("UPPERCASE",
+                                  "camel_Case",
+                                  "camelCase",
+                                  "camelcase",
+                                  "snake_case",
+                                  "SNAKE_CASE",
+                                  "snake_case"),
+                       regexes = c(CAMELcase = "[[:upper:]+[:lower:]+]",
+                                   HYBRID_case="[[:upper:]+_[:lower:]+]")),
+    pipe_consistency_linter(pipe = "%>%"), #will move to the strictly the native pipe sometime in the future
+    object_length_linter(length=99L),
+    object_usage_linter(interpret_extensions = c("glue", "rlang", "magrittr", "dplyr", "tidyselect"))
+  )

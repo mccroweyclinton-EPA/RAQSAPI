@@ -11,8 +11,8 @@ aqs_quarterlysummary_by_site(
   stateFIPS,
   countycode,
   sitenum,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
+  cbdate = lubridate::NA_Date_,
+  cedate = lubridate::NA_Date_,
   return_header = FALSE
 )
 }
@@ -21,57 +21,58 @@ aqs_quarterlysummary_by_site(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
+\item{edate}{a R date object which represents the end date of the data
 selection. Only data on or before this date will be returned.}
 
 \item{stateFIPS}{a R character object which represents the 2 digit state
 FIPS code (with leading zero) for the state being
-requested. @seealso \code{\link[=aqs_states]{aqs_states()}} for the list of
+requested. Use \code{\link[=aqs_states]{aqs_states()}} for the list of
 available FIPS codes.}
 
 \item{countycode}{a R character object which represents the 3 digit state
 FIPS code for the county being requested (with leading
-zero(s)). @seealso \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}} for the
-list of available county codes for each state.}
+zero(s)). Use \code{\link[=aqs_counties_by_state]{aqs_counties_by_state()}}
+for the list of available county codes in each state.}
 
 \item{sitenum}{a R character object which represents the 4 digit site number
 (with leading zeros) within the county and state being
-requested.}
+requested. Use \code{\link[=aqs_sites_by_county]{aqs_sites_by_county()}}
+for the list of available site numbers in  given county and
+state.}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
+\item{cbdate}{a R date object which represents a 'beginning
+date of last change' that indicates when the data was last
 updated. cbdate is used to filter data based on the change
 date. Only data that changed on or after this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
+\item{cedate}{a R date object which represents an 'end
+date of last change' that indicates when the data was last
 updated. cedate is used to filter data based on the change
 date. Only data that changed on or before this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two
-item list that contains header information returned
-from the API server mostly used for debugging
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object that contains quarterly
+a tibble or an AQS_DataMart_APIv2 S3 object that contains quarterly
 summary statistics for the given parameter for a single countycode
-and stateFIPS combination. An AQS_Data Mart_APIv2 is a 2 item named
-list in which the first item (\$Header) is a tibble of header
-information from the AQS API and the second item (\$Data) is a
+and stateFIPS combination. An AQS_DataMart_APIv2 is a 2 item named
+list in which the first item ($Header) is a tibble of header
+information from the AQS API and the second item ($Data) is a
 tibble of the data returned.
 }
 \description{
-\lifecycle{stable}
-Returns a tibble or an AQS_Data Mart_APIv2 S3 object of quarterly summary
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+Returns a tibble or an AQS_DataMart_APIv2 S3 object of quarterly summary
 data aggregated by site with the provided parameternum, stateFIPS,
 county_code, and sitenum for bdate - edate time frame.
 }
@@ -86,37 +87,41 @@ of years of data being requested increases so does the length of time
 that it will take to retrieve results. There is also a 5 second wait
 time inserted between successive API calls to prevent overloading the
 API server. This operation has a linear run time of
-/(Big O notation: O/(n + 5 seconds/)/).
+$mathcal(n + 5 seconds)$.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{    Also note that for quarterly data, only the year portion of the bdate
+    and edate are used and all 4 quarters in the year are returned.
+}\if{html}{\out{</div>}}
 }
 \examples{
-# returns an aqs S3 object containing quarterly summaries for
+# returns a tibble containing quarterly summaries for
           #  FRM/FEM PM2.5 data for Millbrook School in Wake County, NC
-          #  between January and February 2016
- \dontrun{aqs_quarterlysummary_by_site(parameter = "88101",
-                                       bdate = as.Date("20160101",
-                                                       format = "\%Y\%m\%d"),
-                                       edate = as.Date("20160331",
-                                                       format = "\%Y\%m\%d"),
-                                       stateFIPS = "37",
-                                       countycode = "183",
-                                       sitenum = "0014"
+          #  for each quarter of 2016
+ \dontrun{aqs_quarterlysummary_by_site(parameter = '88101',
+                                       bdate = as.Date('20160101',
+                                                       format = '\%Y\%m\%d'),
+                                       edate = as.Date('20160331',
+                                                       format = '\%Y\%m\%d'),
+                                       stateFIPS = '37',
+                                       countycode = '183',
+                                       sitenum = '0014'
                                        )
          }
 }
 \seealso{
-Other Aggregate _by_county functions: 
-\code{\link{aqs_annualsummary_by_county}()},
-\code{\link{aqs_dailysummary_by_county}()},
-\code{\link{aqs_monitors_by_county}()},
-\code{\link{aqs_qa_annualperformanceeval_by_county}()},
-\code{\link{aqs_qa_blanks_by_county}()},
-\code{\link{aqs_qa_collocated_assessments_by_county}()},
-\code{\link{aqs_qa_flowrateaudit_by_county}()},
-\code{\link{aqs_qa_flowrateverification_by_county}()},
-\code{\link{aqs_qa_one_point_qc_by_county}()},
-\code{\link{aqs_qa_pep_audit_by_county}()},
-\code{\link{aqs_quarterlysummary_by_county}()},
-\code{\link{aqs_sampledata_by_county}()},
-\code{\link{aqs_transactionsample_by_county}()}
+Other Aggregate _by_county functions:
+\code{\link[=aqs_annualsummary_by_county]{aqs_annualsummary_by_county()}},
+\code{\link[=aqs_dailysummary_by_county]{aqs_dailysummary_by_county()}},
+\code{\link[=aqs_monitors_by_county]{aqs_monitors_by_county()}},
+\code{\link[=aqs_qa_annualperformanceeval_by_county]{aqs_qa_annualperformanceeval_by_county()}},
+\code{\link[=aqs_qa_blanks_by_county]{aqs_qa_blanks_by_county()}},
+\code{\link[=aqs_qa_collocated_assessments_by_county]{aqs_qa_collocated_assessments_by_county()}},
+\code{\link[=aqs_qa_flowrateaudit_by_county]{aqs_qa_flowrateaudit_by_county()}},
+\code{\link[=aqs_qa_flowrateverification_by_county]{aqs_qa_flowrateverification_by_county()}},
+\code{\link[=aqs_qa_one_point_qc_by_county]{aqs_qa_one_point_qc_by_county()}},
+\code{\link[=aqs_qa_pep_audit_by_county]{aqs_qa_pep_audit_by_county()}},
+\code{\link[=aqs_quarterlysummary_by_county]{aqs_quarterlysummary_by_county()}},
+\code{\link[=aqs_sampledata_by_county]{aqs_sampledata_by_county()}},
+\code{\link[=aqs_transactionsample_by_county]{aqs_transactionsample_by_county()}}
 }
 \concept{Aggregate _by_county functions}

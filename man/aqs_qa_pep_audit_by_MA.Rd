@@ -4,60 +4,39 @@
 \alias{aqs_qa_pep_audit_by_MA}
 \title{aqs_qa_pep_audit_by_MA}
 \usage{
-aqs_qa_pep_audit_by_MA(
-  parameter,
-  bdate,
-  edate,
-  MA_code,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
-  return_header = FALSE
-)
+aqs_qa_pep_audit_by_MA(parameter, bdate, edate, MA_code, return_header = FALSE)
 }
 \arguments{
 \item{parameter}{a character list or a single character string
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
-selection. Only data on or before this date will be
-returned.}
+\item{edate}{a R date object which represents the end date of the data
+selection. Only data on or before this date will be returned.}
 
 \item{MA_code}{a R character object which represents the 4 digit AQS
-Monitoring Agency code (with leading zeroes).}
-
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
-updated. cbdate is used to filter data based on the change
-date. Only data that changed on or after this date will be
-returned. This is an optional variable which defaults
-to NA_Date_.}
-
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
-updated. cedate is used to filter data based on the change
-date. Only data that changed on or before this date will be
-returned. This is an optional variable which defaults
-to NA_Date_.}
+Monitoring Agency code (with leading zeroes). Use
+\code{\link[=aqs_mas]{aqs_mas()}} for a list of all
+Monitoring Agency (MA) codes and names available,}
 
 \item{return_header}{If FALSE (default) only returns data requested. If TRUE
 returns a AQSAPI_v2 object which is a two item list that contains header
-information returned from the API server mostly used for debugging
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object containing quality
+a tibble or an AQS_DataMart_APIv2 S3 object containing quality
 assurance PEP audit data for a monitoring agency. A
 AQS_Data_Mart_APIv2 object is a 2 item named list in which the
-first item (\$Header) is a tibble of header information from the
-AQS API and the second item (\$Data) is a tibble of the data
+first item ($Header) is a tibble of header information from the
+AQS API and the second item ($Data) is a tibble of the data
 returned.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns a table of Performance Evaluation Program (PEP) audit
 data aggregated by monitoring agency code (_by_MA) for the
 time frame between bdate and edate.
@@ -73,29 +52,29 @@ of years of data being requested increases so does the length of time
 that it will take to retrieve results. There is also a 5 second wait
 time inserted between successive API calls to prevent overloading the
 API server. This operation has a linear run time of
-/(Big O notation: O/(n + 5 seconds/)/).
+$mathcal(n + 5 seconds)$.
 }
 \examples{
-# returns a tibble of PEP audit data for
+# Returns a tibble of PEP audit data for
           #  June 2017 where the Monitoring Agency is the Alabama Department
           #  of Environmental Management (agency 0013)
-          \dontrun{aqs_qa_pep_audit_by_MA(parameter = "88101",
-                                          bdate = as.Date("20170601",
-                                                          format = "\%Y\%m\%d"),
-                                          edate = as.Date("20170630",
-                                                          format = "\%Y\%m\%d"),
-                                          MA_code = "0013"
+          \dontrun{aqs_qa_pep_audit_by_MA(parameter = '88101',
+                                          bdate = as.Date('20170601',
+                                                          format = '\%Y\%m\%d'),
+                                          edate = as.Date('20170630',
+                                                          format = '\%Y\%m\%d'),
+                                          MA_code = '0013'
                                          )
                    }
 }
 \seealso{
-Other Aggregate _by_MA functions: 
-\code{\link{aqs_qa_annualpeferomanceeval_by_MA}()},
-\code{\link{aqs_qa_annualperformanceevaltransaction_by_MA}()},
-\code{\link{aqs_qa_blanks_by_MA}()},
-\code{\link{aqs_qa_collocated_assessments_by_MA}()},
-\code{\link{aqs_qa_flowrateaudit_by_MA}()},
-\code{\link{aqs_qa_flowrateverification_by_MA}()},
-\code{\link{aqs_qa_one_point_qc_by_MA}()}
+Other Aggregate _by_MA functions:
+\code{\link[=aqs_qa_annualperformanceeval_by_MA]{aqs_qa_annualperformanceeval_by_MA()}},
+\code{\link[=aqs_qa_annualperformanceevaltransaction_by_MA]{aqs_qa_annualperformanceevaltransaction_by_MA()}},
+\code{\link[=aqs_qa_blanks_by_MA]{aqs_qa_blanks_by_MA()}},
+\code{\link[=aqs_qa_collocated_assessments_by_MA]{aqs_qa_collocated_assessments_by_MA()}},
+\code{\link[=aqs_qa_flowrateaudit_by_MA]{aqs_qa_flowrateaudit_by_MA()}},
+\code{\link[=aqs_qa_flowrateverification_by_MA]{aqs_qa_flowrateverification_by_MA()}},
+\code{\link[=aqs_qa_one_point_qc_by_MA]{aqs_qa_one_point_qc_by_MA()}}
 }
 \concept{Aggregate _by_MA functions}

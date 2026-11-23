@@ -1,0 +1,4 @@
+# The following urls may be valid but are included if they frequently cause urlchecker to fail
+^https?://(www\.)?gnu\.org #connection timeout
+^https?://(www\.)?github\.com #SSL issues
+^https?://CRAN.R-project\.org

@@ -14,27 +14,24 @@ will be used to connect to the AQS API.}
 AQS Data Mart.}
 }
 \value{
-None
+NULL (invisible) This functions is called for its side effect and
+does not return meaningful data.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Sets the user credentials for the AQS API. This function
 needs to be called once and only once every time this library
 is re-loaded. Users must have a valid username and key which
 can be obtained through the use of the aqs_sign_up function,
-@seealso \code{\link[=aqs_sign_up]{aqs_sign_up()}} to sign up for AQS data mart
+Use \code{\link[=aqs_sign_up]{aqs_sign_up()}} to sign up for AQS datamart
 credentials.
 }
-\section{RAQSAPI setup functions}{
-NA
-}
-
 \examples{
  #to authenticate an existing user the email address
- # "John.Doe@myemail.com" and key = "MyKey"
+ # 'John.Doe@myemail.com' and key = 'MyKey'
  #  after calling this function please follow the instructions that are sent
  #  in the verification e-mail before proceeding.
- \dontrun{aqs_credentials(username = "John.Doe@myemail.com",
-                              key = "MyKey")
+ \dontrun{aqs_credentials(username = 'John.Doe@myemail.com',
+                              key = 'MyKey')
          }
 }

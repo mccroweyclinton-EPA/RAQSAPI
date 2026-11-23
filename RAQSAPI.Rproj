@@ -1,8 +1,8 @@
 Version: 1.0
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+RestoreWorkspace: No
+SaveWorkspace: No
+AlwaysSaveHistory: No
 
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
@@ -17,9 +17,14 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --no-multiarch --with-keep.source --preclean --byte-compile --use-vanilla
-PackageBuildArgs: --md5 --log
-PackageCheckArgs: --manual  = TRUE
+PackageInstallArgs: --no-multiarch --preclean --byte-compile
+PackageBuildArgs: --md5 --log  --compact-vignettes
+PackageCheckArgs: --manual  = TRUE --as-cran
 PackageRoxygenize: rd,collate,namespace,vignette
 
 QuitChildProcessesOnExit: Yes
+DisableExecuteRprofile: Yes
+
+MarkdownReferences: Document
+
+SpellingDictionary: en_US

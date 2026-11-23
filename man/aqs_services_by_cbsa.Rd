@@ -11,8 +11,8 @@ aqs_services_by_cbsa(
   cbsa_code,
   duration = NA_character_,
   service,
-  cbdate = NA_Date_,
-  cedate = NA_Date_,
+  cbdate = lubridate::NA_Date_,
+  cedate = lubridate::NA_Date_,
   AQS_domain = "aqs.epa.gov"
 )
 }
@@ -21,15 +21,16 @@ aqs_services_by_cbsa(
 which represents the parameter code of the air
 pollutant related to the data being requested.}
 
-\item{bdate}{a R date object which represents that begin date of the data
+\item{bdate}{a R date object which represents the begin date of the data
 selection. Only data on or after this date will be returned.}
 
-\item{edate}{a R date object which represents that end date of the data
+\item{edate}{a R date object which represents the end date of the data
 selection. Only data on or before this date will be returned.}
 
 \item{cbsa_code}{a R character object which represents the 5 digit AQS Core
 Based Statistical Area code (the same as the census code,
-with leading zeros)}
+with leading zeros). Use \code{\link[=aqs_cbsas]{aqs_cbsas()}}
+for a list of all CBSA codes and names available,}
 
 \item{duration}{an optional R character string that represents the
 parameter duration code that limits returned data
@@ -38,23 +39,23 @@ NA_character_ results in no filtering based on
 duration code.Valid durations include actual sample
 durations and not calculated durations such as 8
 hour CO or $O_3$ rolling averages, 3/6 day PM
-averages or Pb 3 month rolling averages.
-@seealso \code{\link[=aqs_sampledurations]{aqs_sampledurations()}} for a list of all
+averages or Pb 3 month rolling averages. Use
+\code{\link[=aqs_sampledurations]{aqs_sampledurations()}} for a list of all
 available duration codes.}
 
 \item{service}{a string which represents the services provided by the AQS
-API For a list of available services @seealso
+API. For a list of available services Refer to
 \url{https://aqs.epa.gov/aqsweb/documents/data_api.html#services}}
 
-\item{cbdate}{a R date object which represents a "beginning
-date of last change" that indicates when the data was last
+\item{cbdate}{a R date object which represents a 'beginning
+date of last change' that indicates when the data was last
 updated. cbdate is used to filter data based on the change
 date. Only data that changed on or after this date will be
 returned. This is an optional variable which defaults
 to NA_Date_.}
 
-\item{cedate}{a R date object which represents an "end
-date of last change" that indicates when the data was last
+\item{cedate}{a R date object which represents an 'end
+date of last change' that indicates when the data was last
 updated. cedate is used to filter data based on the change
 date. Only data that changed on or before this date will be
 returned. This is an optional variable which defaults
@@ -71,9 +72,34 @@ AQS API and the second item ($Data) is a tibble of the data
 returned.
 }
 \description{
-a helper function that abstracts the formatting of the inputs
+A helper function that abstracts the formatting of the inputs
 for a call to aqs away from the calling function for
 aggregations by cbsa then calls the aqs and returns the
 result. This helper function is not meant to be called
 directly from external functions.
 }
+\examples{
+# if an user were to call aqs_annualsummary_by_cbsa() for  annual
+          # summary $NO_{2}$ data the for Charlotte-Concord-Gastonia, NC
+          # cbsa on Janurary 01, 2017
+          #[aqs_annualsummary_by_cbsa(parameter = '42602',
+          #                           bdate = as.Date('20170101',
+          #                                            format = '\%Y\%m\%d'
+          #                                            ),
+          #                           edate = as.Date('20170101',
+          #                                            format = '\%Y\%m\%d'
+          #                                           ),
+          #                           cbsa_code = '16740'
+          #                            )]
+          # then aqs_annualsummary_by_cbsa() would call this helper
+          # function with the following inputs.
+          \dontrun{aqs_services_by_cbsa(parameter = '42602',
+                                        bdate = as.Date('20170101',
+                                                     format = '\%Y\%m\%d'),
+                                        edate = as.Date('20170101',
+                                                     format = '\%Y\%m\%d'),
+                                        cbsa_code = '16740',
+                                        service = 'annualData')
+                  }
+}
+\keyword{internal}

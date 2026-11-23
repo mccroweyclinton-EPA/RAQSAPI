@@ -8,28 +8,27 @@ aqs_parameters_by_class(class, return_header = FALSE)
 }
 \arguments{
 \item{class}{a R character object that represents the class requested,
-@seealso \code{\link[=aqs_classes]{aqs_classes()}} for retrieving
+Use \code{\link[=aqs_classes]{aqs_classes()}} for retrieving
 available classes.  The class R character object must be a
 valid class as returned from aqs_classes(). The class must
 be an exact match to what is returned from aqs_classes()
 (case sensitive).}
 
-\item{return_header}{If FALSE (default) only returns data requested.
-If TRUE returns a AQSAPI_v2 object which is a two
-item list that contains header information returned
-from the API server mostly used for debugging
+\item{return_header}{If FALSE (default) only returns data requested. If TRUE
+returns a AQSAPI_v2 object which is a two item list that contains header
+information returned from the API server, mostly used for debugging
 purposes in addition to the data requested.}
 }
 \value{
-a tibble or an AQS_Data Mart_APIv2 S3 object containing the
+a tibble or an AQS_DataMart_APIv2 S3 object containing the
 parameters associated with the class requested. NULL is returned
 for classes not found.
 }
 \description{
-\lifecycle{stable}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Returns parameters associated with the input class.
 }
 \examples{
 # Returns a tibble of AQS parameters in the criteria class
-          \dontrun{ aqs_parameters_by_class(class = "CRITERIA") }
+          \dontrun{ aqs_parameters_by_class(class = 'CRITERIA') }
 }
